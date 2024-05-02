@@ -28,14 +28,14 @@ const routes = [
     component: LoginView
   },
   {
-    path: '/:pathMatch(.*)*',
-    name: 'NotFound',
-    component: () => import('../views/NotFoundView.vue')
-  },
-  {
     path: '/class',
     name: 'Class',
     component: ClassView
+  },
+  {
+    path: '/:pathMatch(.*)*',
+    name: 'NotFound',
+    component: () => import('../views/NotFoundView.vue')
   }
 ]
 
