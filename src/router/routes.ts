@@ -1,6 +1,7 @@
 import HomeView from '../views/HomeView.vue'
 import ProfileView from '../views/ProfileView.vue'
 import LoginView from '../views/LoginView.vue'
+import ClassView from '../views/ClassView.vue'
 
 const routes = [
   {
@@ -30,6 +31,11 @@ const routes = [
     path: '/:pathMatch(.*)*',
     name: 'NotFound',
     component: () => import('../views/NotFoundView.vue')
+  },
+  {
+    path: '/class',
+    name: 'Class',
+    component: ClassView
   }
 ]
 
