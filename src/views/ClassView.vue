@@ -6,11 +6,16 @@ import Alert from "../components/TeacherComponent/Alert.vue";
 import AddStudentForm from "../components/TeacherComponent/AddStudentForm.vue";
 
 
+import QuestionManager from "@/components/StudentComponent/QuestionManager.vue";
+import AllQuestions from "@/components/StudentComponent/AllQuestions.vue";
+
+const TEACHER = false;
+const STUDENT = true;
 
 </script>
 
 <template>
-    <main v-if="true" class="d-flex m-0 teacher-display">
+    <main v-if="TEACHER" class="d-flex m-0 teacher-display">
         <Students class="border-end border-dark w-25"/>
         <div class="flex-fill">
             <DetailedQuestion class="h-75 p-3"/>
@@ -19,10 +24,20 @@ import AddStudentForm from "../components/TeacherComponent/AddStudentForm.vue";
         <Questions class="border-start border-dark w-25"/>
         <AddStudentForm v-if="true" class="position-absolute top-50 start-50 translate-middle"/>
     </main>
+    <div class="" v-if="STUDENT">
+        <main class="d-flex justify-content-around align-items-center page-height">
+            <AllQuestions/>
+            <QuestionManager/>
+        </main>
+    </div>
 </template>
 
 <style scoped>
-.teacher-display{
+.page-height {
+    height: 850px;
+}
+
+.teacher-display {
     height: 800px;
 }
 </style>
