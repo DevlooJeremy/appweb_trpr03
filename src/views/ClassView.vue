@@ -8,12 +8,18 @@ import Alert from "../components/Alert.vue";
 </script>
 
 <template>
-    <div v-if="true">
-        <div><Students/></div>
-        <div><Questions/></div>
-        <div><DetailedQuestion/></div>
-        <div><Alert/></div>
-    </div>
+    <main v-if="true" class="d-flex m-0 teacher-display">
+        <Students class="border-end border-dark w-25"/>
+        <div class="flex-fill">
+            <DetailedQuestion class="h-75 p-3"/>
+            <Alert class="border-top border-dark p-3 pb-0"/>
+        </div>
+        <Questions class="border-start border-dark w-25"/>
+    </main>
 </template>
 
-<style scoped></style>
+<style scoped>
+.teacher-display{
+    height: 800px;
+}
+</style>
