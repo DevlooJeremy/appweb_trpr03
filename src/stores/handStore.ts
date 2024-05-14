@@ -1,12 +1,16 @@
 import { defineStore } from 'pinia'
 import { computed, ref } from 'vue'
-import { useAuthStore } from './authStore'
 import { handService } from '../services/handService'
 
 export const useHandStore = defineStore('useHandStoreId', () => {
 
     const onError = ref(false);
-    const nextHandId = ref<number>(0);
+    const nextHandId = computed<number>(() => {
+        return handService.getHands.length
+    });
+    const hands = computed(() => {
+        return handService.getHands;
+    });
 
     async function raiseHand(priority: number, userId: number, questionId: number) {
         try {
@@ -14,10 +18,9 @@ export const useHandStore = defineStore('useHandStoreId', () => {
             handService.postHand({id: nextHandId.value, priority: priority, userId: userId, questionId: questionId});
         } catch (error) {
             onError.value = true;
-            console.log("erreur")
         }
-        if (!onError) nextHandId.value += 1;
     }
+
 
     return {
         onError,

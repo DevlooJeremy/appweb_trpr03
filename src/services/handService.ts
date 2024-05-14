@@ -4,14 +4,25 @@ import axiosAuth from '../shared/axiosAuth'
 async function postHand(hand: {id: number, priority: number, userId: number, questionId: number}) {
     try {
         
-        await axiosAuth.post(`http://127.0.0.1:3000/hands`,hand)
+        await axiosAuth.post(`http://127.0.0.1:3000/hands`,hand);
         
     } catch (error) {
-        throw parseAxiosError(error)
+        throw parseAxiosError(error);
+    }
+}
+
+async function getHands() {
+    try {  
+
+        const response = await axiosAuth.get(`http://127.0.0.1:3000/hands`);
+        return response.data;
+        
+    } catch (error) {
+        throw parseAxiosError(error);
     }
 }
 
 export const handService = {
-    postHand
-    //faire que le post fonctionne pour les mains.
+    postHand,
+    getHands
 }
