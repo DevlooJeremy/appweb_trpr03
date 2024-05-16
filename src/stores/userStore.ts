@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia'
 import { computed, reactive, ref, watch } from 'vue'
 import { userService } from '../services/userService'
+import { parseAxiosError } from '@/shared/parseAxiosError';
 
 export const useUserStore = defineStore('useUserStore', () => {
 
@@ -32,10 +33,19 @@ export const useUserStore = defineStore('useUserStore', () => {
         }
     }
 
+    async function changePassword(user: {id: number, password: string}) {
+        try {
+            userService.changePassword(user);
+        } catch (error) {
+            throw parseAxiosError(error);
+        }
+    }
+
     return {
         getUsers,
         addStudent,
         removeStudent,
+        changePassword,
         users
     }
 

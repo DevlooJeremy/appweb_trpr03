@@ -5,14 +5,21 @@ import DetailedQuestion from "../components/TeacherComponent/DetailedQuestion.vu
 import Alert from "../components/TeacherComponent/Alert.vue";
 import QuestionManager from "@/components/StudentComponent/QuestionManager.vue";
 import AllQuestions from "@/components/StudentComponent/AllQuestions.vue";
+import { computed, onMounted } from 'vue'
+import { useProfileStore } from "@/stores/profileStore";
 
-const TEACHER = true;
-const STUDENT = false;
+const profileStore = useProfileStore();
 
+const role = computed(() => profileStore.role)
+
+
+onMounted(() => {
+    profileStore.getProfile();
+})
 </script>
 
 <template>
-    <div v-if="TEACHER" class="d-flex m-0 teacher-display">
+    <div v-if="role === 'teacher'" class="d-flex m-0 teacher-display">
         <Students class="border-end border-dark w-25"/>
         <div class="flex-fill">
             <DetailedQuestion class="h-75 p-3"/>
@@ -21,7 +28,7 @@ const STUDENT = false;
         <Questions class="border-start border-dark w-25"/>
     </div>
 
-    <div class="" v-if="STUDENT">
+    <div class="" v-if="role === 'student'">
         <main class="d-flex justify-content-around align-items-center page-height">
             <AllQuestions/>
             <QuestionManager/>
@@ -37,4 +44,5 @@ const STUDENT = false;
 .teacher-display {
     height: 800px;
 }
+
 </style>
