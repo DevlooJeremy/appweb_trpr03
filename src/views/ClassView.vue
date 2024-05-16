@@ -19,7 +19,7 @@ onMounted(() => {
 </script>
 
 <template>
-    <div v-if="role === 'teacher'" class="d-flex m-0 teacher-display">
+    <div v-if="role === 'teacher'" class="d-flex m-0 page-height">
         <Students class="border-end border-dark w-25"/>
         <div class="flex-fill">
             <DetailedQuestion class="h-75 p-3"/>
