@@ -10,6 +10,7 @@ const props = defineProps({
 })
 
 const timer = ref("00:00")
+const time = ref(0)
 
 const emit = defineEmits<{
   (event: 'deleteQuestion', id: number): void
@@ -19,7 +20,13 @@ function deleteQuestion() {
   emit('deleteQuestion', props.questionId??0)
 }
 
+function startTimer() {
+  
+}
+
 function setTime(newTime: number) {
+  console.log("test")
+  time.value = newTime
   timer.value = formatTime(newTime)
 }
 
@@ -51,8 +58,8 @@ function formatTime(timeInSec: number) {
     </div>
     <p>{{ props.question??"Question détaillée." }}</p>
     <div class="mt-auto d-flex flex-column">
-      <button class="btn text-danger btn-outline-dark border-2 fw-bold ms-auto m-2" @click="deleteQuestion">Supprimer</button>
-      <Timer class="border-top border-3 mt-2"/>
+      <div class="btn text-danger btn-outline-dark border-2 fw-bold ms-auto m-2" @click="deleteQuestion">Supprimer</div>
+      <Timer class="border-top border-3 mt-2" :on-start-timer="startTimer" :on-set-time="setTime"/>
     </div>
   </div>
 </template>

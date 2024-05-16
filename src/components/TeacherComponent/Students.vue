@@ -1,29 +1,28 @@
 <script setup lang="ts">
-import { watch, ref } from 'vue';
+import { ref, computed, onMounted } from 'vue';
+import { useUserStore } from "../../stores/userStore";
+import AddStudentForm from "./AddStudentForm.vue"
 
+const userStore = useUserStore()
 
-const props = defineProps({
-    students: Array<any>
-});
+const students = computed(() => userStore.users)
 
-const studentList = ref()
+const addingStudent = ref<boolean>(false)
 
-/*watch(props, () => {props.students?.then((response) => {
-    console.log(response)
-    studentList.value = response
-})})*/
-
-const emit = defineEmits<{
-  (event: 'openStudentForm'): void,
-  (event: 'removeStudent', id: number): void
-}>()
-
-function addStudent() {
-    emit("openStudentForm")
+function openStudentForm() {
+    addingStudent.value = true
 }
 
-function removeStudent(studentId:number) {
-    emit("removeStudent", studentId)
+function closeStudentForm() {
+    addingStudent.value = false
+}
+
+onMounted(() => {
+    userStore.getUsers()
+})
+
+async function removeStudent(id:number) {
+    await userStore.removeStudent(id)
 }
 
 function isStudent(role:string) {
@@ -35,13 +34,14 @@ function isStudent(role:string) {
 <template>
     <div class="d-flex flex-column align-items-center p-3">
         <h1 class="title">Étudiants</h1>
-        <div class="addingButton" @click="addStudent">Ajouter +</div>
-        <div class="w-100" v-for="student of props.students">
+        <div class="addingButton" @click="openStudentForm">Ajouter +</div>
+        <div class="w-100" v-for="student of students">
             <div class="row py-2 border-bottom border-dark mx-3" v-if="isStudent(student.role)">
                 <div class="col text-center">{{student.name}}</div>
                 <div class="col text-center text-danger" @click="removeStudent(student.id)">Supprimer</div>
             </div>
         </div>
+        <AddStudentForm v-if="addingStudent" class="position-absolute top-50 start-50 translate-middle" @close="closeStudentForm"/>
     </div>
 </template>
 

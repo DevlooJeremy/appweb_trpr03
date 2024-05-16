@@ -14,7 +14,13 @@
       "id": 1
     }
   ],
-  "hands": [
-    
+  "categories": [
+    {
+      "id": 1,
+      "name": "Quick Question"
+    }, {
+      "id": 2,
+      "name": "Long Question"
+    }
   ]
 }

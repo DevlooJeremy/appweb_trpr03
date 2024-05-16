@@ -4,12 +4,11 @@ import { userService } from '../services/userService'
 
 export const useUserStore = defineStore('useUserStore', () => {
 
-    //const students = computed(async () => {console.log("test");let test = await getStudentUsers(); return test})
-    const students = reactive({data: getStudentUsers()})
+    const users = ref<any>()
 
-    async function getStudentUsers() {
+    async function getUsers() {
         try {
-            return await userService.getUsers();
+            users.value = await userService.getUsers()
         } catch (error) {
             console.log(error)
         }
@@ -17,9 +16,8 @@ export const useUserStore = defineStore('useUserStore', () => {
 
     async function addStudent(name: string, password: string, email: string) {
         try {
-            const id = ref<number>(0)
-            await students.data.then((response) => {id.value = response.lenght + 1})
-            userService.postUser({email: email, password: password, name: name, id: id.value, role: "student"});
+            userService.postUser({email: email, password: password, name: name, role: "student"})
+            getUsers()
         } catch (error) {
             console.log("erreur")
         }
@@ -27,21 +25,18 @@ export const useUserStore = defineStore('useUserStore', () => {
 
     async function removeStudent(id:number) {
         try {
-            await userService.deleteUser(id);
+            await userService.deleteUser(id)
+            getUsers()
         } catch (error) {
             console.log("erreur")
         }
     }
 
-    async function getStudents() {
-        return await students.data;
-    }
-
     return {
-        getStudents,
+        getUsers,
         addStudent,
         removeStudent,
-        students
+        users
     }
 
 });

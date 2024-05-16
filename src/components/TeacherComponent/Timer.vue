@@ -11,9 +11,18 @@ const emit = defineEmits<{
 }>()
 
 function startTimer() {
-    if (minutes) {
-        
+    if (minutes.value > 0 && seconds.value > 0) {
+        emit("setTime", timeToNumber())
     }
+    emit("startTimer")
+}
+
+function stopTimer() {
+    emit("stopTimer")
+}
+
+function reinitialiseTimer() {
+    emit("reinitialiseTimer")
 }
 
 function timeToNumber(): number {
@@ -30,9 +39,9 @@ function timeToNumber(): number {
             :
             <input class="time-input" type="number" v-model="seconds" placeholder="00">
             <div class="ms-auto">
-                <button class="btn btn-outline-dark border-2 fw-bold m-2">Démarrer</button>
-                <button class="btn btn-outline-dark border-2 fw-bold m-2">Arrêter</button>
-                <button class="btn btn-outline-dark border-2 fw-bold m-2">Réinitialiser</button>
+                <div class="btn btn-outline-dark border-2 fw-bold m-2" @click="startTimer">Démarrer</div>
+                <div class="btn btn-outline-dark border-2 fw-bold m-2" @click="stopTimer">Arrêter</div>
+                <div class="btn btn-outline-dark border-2 fw-bold m-2" @click="reinitialiseTimer">Réinitialiser</div>
             </div>
         </form>
     </div>
