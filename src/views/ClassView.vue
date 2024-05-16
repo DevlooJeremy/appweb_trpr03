@@ -12,7 +12,7 @@ const STUDENT = false;
 </script>
 
 <template>
-    <div v-if="TEACHER" class="d-flex m-0 teacher-display">
+    <div v-if="TEACHER" class="d-flex m-0 page-height border-bottom border-dark">
         <Students class="border-end border-dark w-25"/>
         <div class="flex-fill">
             <DetailedQuestion class="h-75 p-3"/>
@@ -32,9 +32,5 @@ const STUDENT = false;
 <style scoped>
 .page-height {
     height: 850px;
-}
-
-.teacher-display {
-    height: 800px;
 }
 </style>

@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { computed, reactive, ref, watch } from 'vue'
+import { ref} from 'vue'
 import { userService } from '../services/userService'
 
 export const useUserStore = defineStore('useUserStore', () => {
@@ -19,7 +19,7 @@ export const useUserStore = defineStore('useUserStore', () => {
             userService.postUser({email: email, password: password, name: name, role: "student"})
             getUsers()
         } catch (error) {
-            console.log("erreur")
+            console.log(error)
         }
     }
 
@@ -28,7 +28,7 @@ export const useUserStore = defineStore('useUserStore', () => {
             await userService.deleteUser(id)
             getUsers()
         } catch (error) {
-            console.log("erreur")
+            console.log(error)
         }
     }
 
