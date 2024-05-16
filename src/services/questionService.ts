@@ -1,4 +1,3 @@
-import { parseAxiosError } from "@/shared/parseAxiosError"
 import axiosAuth from '../shared/axiosAuth'
 
 
@@ -18,13 +17,18 @@ async function getAllQuestions() {
     return response.data;
 }
 
-async function postQuestion(data: {id: number, userId: number, question: string }) {
+async function postQuestion(data: {id: number, userId: number, question: string, priority: number, isSuper: boolean }) {
    const response = await axiosAuth.post(URL, data);
    return response.data;
+}
+
+async function deleteQuestion(id: number) {
+    await axiosAuth.delete(URL + "/" + id);
 }
 
 export const questionService = {
     getUserQuestions,
     getAllQuestions,
-    postQuestion
+    postQuestion,
+    deleteQuestion
 }

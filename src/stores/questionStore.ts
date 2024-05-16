@@ -19,18 +19,24 @@ export const useQuestionStore = defineStore('useQuestionStoreId',() => {
         return response.length + 1;
     }
 
-    async function createQuestion(question: string) {
+    async function createQuestion(question: string, priority: number, isSuper: boolean) {
         let userId = parseInt(authStore.getUserId);
         let nextQuestionId: number = await getNextQuestionId();
-        const response = await questionService.postQuestion({id: nextQuestionId, userId: userId, question: question});
+        const response = await questionService.postQuestion({id: nextQuestionId, userId: userId, question: question, priority: priority, isSuper: isSuper});
         getQuestions();
         return response.id;
+    }
+
+    async function deleteQuestion(id: number) {
+        await questionService.deleteQuestion(id);
+        getQuestions();
     }
 
 
     return {
         questions,
         getQuestions,
-        createQuestion
+        createQuestion,
+        deleteQuestion
     }
 });

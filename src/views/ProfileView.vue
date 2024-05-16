@@ -3,9 +3,11 @@ import { onMounted, computed } from 'vue'
 import { useProfileStore } from '../stores/profileStore'
 import { userService } from '@/services/userService';
 import { useAuthStore } from '@/stores/authStore';
+import { useUserStore } from '@/stores/userStore';
 
 const profileStore = useProfileStore()
 const authStore = useAuthStore();
+const userStore = useUserStore();
 
 const name = computed(() => profileStore.name)
 const email = computed(() => profileStore.email)
@@ -31,7 +33,7 @@ function onSubmit() {
   if (newPassword.value === passwordConfirmation.value) {
     let id = parseInt(authStore.getUserId);
     console.log("allo")
-    userService.changePassword({id, password: newPassword.value});
+    userStore.changePassword({id, password: newPassword.value});
   }
   else {
     //implémenter erreur
