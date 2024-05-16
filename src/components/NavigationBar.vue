@@ -39,15 +39,23 @@ function logout() {
         <!-- La page Profile n'est accessible que si l'utilisateur est connecté (v-if). Voir la propriété calculée isLoggedIn() qui retourne la valeur de la propriété isLoggedIn du store. -->
         <RouterLink
           class="nav-link"
-          :class="{ active: $route.name == 'Profile' }"
+          :class="{ active: $route.name == 'Class' }"
           v-if="isLoggedIn"
-          :to="{ name: 'Profile' }"
+          :to="{ name: 'Class' }"
         >
-          Profile
+          Classe
         </RouterLink>
       </div>
       <div class="d-flex">
         <div class="navbar-nav ml-auto">
+          <RouterLink 
+            class="nav-link"
+            v-if="isLoggedIn" 
+            :class="{ active: $route.name == 'Profile' }" 
+            :to="{ name: 'Profile'}" 
+          >
+            Profile
+          </RouterLink>
           <a class="nav-link" @click="logout" v-if="isLoggedIn" href="#">
             Se déconnecter
           </a>
