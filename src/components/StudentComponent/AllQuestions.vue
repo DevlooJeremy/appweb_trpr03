@@ -10,15 +10,20 @@ onMounted(() => {
     questionStore.getQuestions();
 })
 
+function deleteQuestion(id: number) {
+    questionStore.deleteQuestion(id);
+}
+
 //modifier l'affichage de cette vue.
 </script>
 
 <template>
     <div class="border border-2 border-dark">
-        <ul>
-            <li class="list-group-item border-bottom border-dark border-1" v-for="(question, index) of questions">
-                {{ index }}
+        <ul class="">
+            <li class="border-bottom border-dark border-1 mt-3" v-for="(question, index) of questions">
+                {{ index + 1}}
                 {{ question.question }}
+                <button @click="deleteQuestion(question.id)" class="btn btn-primary">Supprimer</button>
             </li>
         </ul>
     </div>
@@ -28,5 +33,9 @@ onMounted(() => {
 div {
     height: 600px;
     width: 500px;
+}
+ul {
+    list-style: none;
+    padding: 0;
 }
 </style>

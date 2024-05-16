@@ -1,11 +1,13 @@
 import { defineStore } from 'pinia'
 import { computed, reactive, ref, watch } from 'vue'
 import { userService } from '../services/userService'
+import { parseAxiosError } from '@/shared/parseAxiosError';
 
 export const useUserStore = defineStore('useUserStore', () => {
 
     //const students = computed(async () => {console.log("test");let test = await getStudentUsers(); return test})
     const students = reactive({data: getStudentUsers()})
+
 
     async function getStudentUsers() {
         try {
@@ -37,10 +39,19 @@ export const useUserStore = defineStore('useUserStore', () => {
         return await students.data;
     }
 
+    async function changePassword(user: {id: number, password: string}) {
+        try {
+            userService.changePassword(user);
+        } catch (error) {
+            throw parseAxiosError(error);
+        }
+    }
+
     return {
         getStudents,
         addStudent,
         removeStudent,
+        changePassword,
         students
     }
 

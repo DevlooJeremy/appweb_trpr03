@@ -8,10 +8,14 @@ import QuestionManager from "@/components/StudentComponent/QuestionManager.vue";
 import AllQuestions from "@/components/StudentComponent/AllQuestions.vue";
 import { useUserStore } from "../stores/userStore";
 import { computed, onMounted, reactive, ref, watch } from "vue";
+import { useProfileStore } from "@/stores/profileStore";
 
 const userStore = useUserStore()
+const profileStore = useProfileStore()
 
 const addingStudent = ref<boolean>(false)
+
+const role = computed(() => profileStore.role)
 
 //const students = computed(() => {userStore.students})
 const students = ref([])
@@ -21,7 +25,10 @@ function getStudentsFromStore() {
     return userStore.getStudents()
 }
 
-onMounted(() => {updateStudents()})
+onMounted(() => {
+    updateStudents()
+    profileStore.getProfile();
+})
 
 async function updateStudents() {
     //await userStore.getStudents().then((response => {students.value = response; console.log(response)}))
@@ -46,13 +53,11 @@ function test() {
     removeStudent(2)
 }
 
-const TEACHER = true;
-const STUDENT = false;
 
 </script>
 
 <template>
-    <div v-if="TEACHER" class="d-flex m-0 teacher-display">
+    <div v-if="role == 'teacher'" class="d-flex m-0 teacher-display">
         <Students class="border-end border-dark w-25" :students="students" @open-student-form="openStudentForm" @remove-student="removeStudent"/>
         <div class="flex-fill">
             <DetailedQuestion class="h-75 p-3"/>
@@ -63,7 +68,7 @@ const STUDENT = false;
         <AddStudentForm v-if="addingStudent" class="position-absolute top-50 start-50 translate-middle" @close="closeStudentForm"/>
     </div>
 
-    <div class="" v-if="STUDENT">
+    <div class="" v-if="role == 'student'">
         <main class="d-flex justify-content-around align-items-center page-height">
             <AllQuestions/>
             <QuestionManager/>
@@ -79,4 +84,5 @@ const STUDENT = false;
 .teacher-display {
     height: 800px;
 }
+
 </style>
