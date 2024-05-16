@@ -17,7 +17,7 @@ async function getAllQuestions() {
     return response.data;
 }
 
-async function postQuestion(data: {id: number, userId: number, question: string, priority: number }) {
+async function postQuestion(data: {id: number, userId: number, question: string, priority: number, isSuper: boolean }) {
    const response = await axiosAuth.post(URL, data);
    return response.data;
 }

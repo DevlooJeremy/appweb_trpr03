@@ -1,19 +1,24 @@
 <script setup lang="ts">
 import { useAuthStore } from '@/stores/authStore'
 import { useQuestionStore } from '@/stores/questionStore';
-import { ref } from 'vue';
+import { onMounted } from 'vue'
 
 const authStore = useAuthStore();
 const questionStore = useQuestionStore();
 
+const isSuper = defineModel<boolean>("isSuper");
+isSuper.value = false;
 const question = defineModel<string>("question");
-
 const priority = defineModel<string>("priority");
-priority.value = "1";
+
+onMounted(() => {
+    isSuper.value = false;
+    priority.value = "1";
+})
 
 async function onSubmit() {
-    if (question.value == undefined || priority.value == undefined) return;
-    let questionId: number = await questionStore.createQuestion(question.value, parseInt(priority.value));
+    if (question.value == undefined || priority.value == undefined || isSuper.value == undefined) return;
+    let questionId: number = await questionStore.createQuestion(question.value, parseInt(priority.value), isSuper.value);
 }
 </script>
 
@@ -30,7 +35,7 @@ async function onSubmit() {
                 <option value="5">5</option>
             </select>
             <label for="super">super</label>
-            <input type="checkbox" name="super" id="super">
+            <input v-model="isSuper" type="checkbox" name="super" id="super">
         </form>
         
     </main>

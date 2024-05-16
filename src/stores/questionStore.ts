@@ -19,10 +19,10 @@ export const useQuestionStore = defineStore('useQuestionStoreId',() => {
         return response.length + 1;
     }
 
-    async function createQuestion(question: string, priority: number) {
+    async function createQuestion(question: string, priority: number, isSuper: boolean) {
         let userId = parseInt(authStore.getUserId);
         let nextQuestionId: number = await getNextQuestionId();
-        const response = await questionService.postQuestion({id: nextQuestionId, userId: userId, question: question, priority: priority});
+        const response = await questionService.postQuestion({id: nextQuestionId, userId: userId, question: question, priority: priority, isSuper: isSuper});
         getQuestions();
         return response.id;
     }

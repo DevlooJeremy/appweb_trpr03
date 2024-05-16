@@ -13,6 +13,20 @@
       "userId": 1,
       "question": "J'ai inventé la machine à voyager dans le temps.",
       "id": 1
+    },
+    {
+      "id": 2,
+      "userId": 1,
+      "question": "Ayaya",
+      "priority": 1,
+      "isSuper": true
+    },
+    {
+      "id": 3,
+      "userId": 1,
+      "question": "XD",
+      "priority": 1,
+      "isSuper": false
     }
   ]
 }

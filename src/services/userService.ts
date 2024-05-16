@@ -5,12 +5,7 @@ const URL = "http://127.0.0.1:3000/users";
 
 async function getUserById (userId: number) {
   try {
-    const response = await axiosAuth.get(URL, {
-      params: {
-          userId: userId
-      }
-  });
-
+    const response = await axiosAuth.get(URL + "/" + userId);
     return response.data
   } catch (error) {
     throw parseAxiosError(error)

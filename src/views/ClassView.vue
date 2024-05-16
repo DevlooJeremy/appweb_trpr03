@@ -28,7 +28,7 @@ onMounted(() => {
         <Questions class="border-start border-dark w-25"/>
     </div>
 
-    <div class="" v-if="role === 'student'">
+    <div v-if="role === 'student'">
         <main class="d-flex justify-content-around align-items-center page-height">
             <AllQuestions/>
             <QuestionManager/>
