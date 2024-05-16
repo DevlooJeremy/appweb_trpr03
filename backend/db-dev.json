@@ -2,7 +2,7 @@
   "users": [
     {
       "email": "test@test.com",
-      "password": "$2a$10$/U4TD6TdllwpkXLdBzoagepGDpOGcRFTS6VHAnYGNeCKsuhpEWmX2",
+      "password": "$2a$10$X0tVTJMYo./gE4jGsmybVuJV.rN2onxJ../7iVLwrp57z5S6ACJku",
       "name": "Emmett Brown",
       "id": 1
     }
@@ -14,7 +14,5 @@
       "id": 1
     }
   ],
-  "hands": [
-
-  ]
+  "hands": []
 }

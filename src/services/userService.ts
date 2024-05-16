@@ -20,6 +20,16 @@ async function postUser(user: {email: string, password: string, name: string, id
   await axiosAuth.post(`http://127.0.0.1:3000/users`,user)
 }
 
+async function changePassword(user:{id: number, password: string}) {
+  try {
+    await axiosAuth.patch(`http://127.0.0.1:3000/users` + `/` + user.id, {
+        password: user.password
+    });
+  } catch (error) {
+    throw parseAxiosError(error);
+  }
+}
+
 async function getUsers () {
   try {
     // axiosAuth est une instance d'axios configurée pour ajouter le JWT à une requête nécessitant une authentification.
@@ -38,5 +48,6 @@ async function getUsers () {
 export const userService = {
   getUserById,
   postUser,
-  getUsers
+  getUsers,
+  changePassword
 }

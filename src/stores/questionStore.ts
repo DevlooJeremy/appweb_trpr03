@@ -23,6 +23,7 @@ export const useQuestionStore = defineStore('useQuestionStoreId',() => {
         let userId = parseInt(authStore.getUserId);
         let nextQuestionId: number = await getNextQuestionId();
         const response = await questionService.postQuestion({id: nextQuestionId, userId: userId, question: question});
+        getQuestions();
         return response.id;
     }
 
