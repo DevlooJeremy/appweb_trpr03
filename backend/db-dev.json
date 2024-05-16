@@ -5,16 +5,20 @@
       "password": "$2a$10$/U4TD6TdllwpkXLdBzoagepGDpOGcRFTS6VHAnYGNeCKsuhpEWmX2",
       "name": "Emmett Brown",
       "id": 1
+    },{
+      "email": "agreqgrq@aergerg.com",
+      "password": "$2a$10$/U4TD6TdllwpkXLdBzoagepGDpOGcRFTS6VHAnYGNeCKsuhpEWmX2",
+      "name": "erwgwthrwthew",
+      "id": 2,
+      "role": "student"
     }
   ],
-  "comments": [
+  "questions": [
     {
       "userId": 1,
-      "comment": "J'ai inventé la machine à voyager dans le temps.",
+      "question": "J'ai inventé la machine à voyager dans le temps.",
       "id": 1
     }
   ],
-  "hands": [
-
-  ]
+  "hands": []
 }

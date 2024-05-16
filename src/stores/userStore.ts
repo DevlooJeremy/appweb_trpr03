@@ -1,30 +1,47 @@
 import { defineStore } from 'pinia'
-import { computed, ref } from 'vue'
+import { computed, reactive, ref, watch } from 'vue'
 import { userService } from '../services/userService'
 
-export const useHandStore = defineStore('useHandStoreId', () => {
+export const useUserStore = defineStore('useUserStore', () => {
 
-    const students = computed(() => { getStudentUsers()})
+    //const students = computed(async () => {console.log("test");let test = await getStudentUsers(); return test})
+    const students = reactive({data: getStudentUsers()})
 
     async function getStudentUsers() {
         try {
-            userService.getUsers();
+            return await userService.getUsers();
         } catch (error) {
-            console.log("erreur")
+            console.log(error)
         }
     }
 
     async function addStudent(name: string, password: string, email: string) {
         try {
-            handService.postHand({id: nextHandId.value, priority: priority, userId: userId, questionId: questionId});
+            const id = ref<number>(0)
+            await students.data.then((response) => {id.value = response.lenght + 1})
+            userService.postUser({email: email, password: password, name: name, id: id.value, role: "student"});
         } catch (error) {
             console.log("erreur")
         }
     }
 
+    async function removeStudent(id:number) {
+        try {
+            await userService.deleteUser(id);
+        } catch (error) {
+            console.log("erreur")
+        }
+    }
+
+    async function getStudents() {
+        return await students.data;
+    }
+
     return {
-        students,
-        raiseHand
+        getStudents,
+        addStudent,
+        removeStudent,
+        students
     }
 
 });

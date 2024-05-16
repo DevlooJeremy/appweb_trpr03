@@ -6,6 +6,45 @@ import Alert from "../components/TeacherComponent/Alert.vue";
 import AddStudentForm from "../components/TeacherComponent/AddStudentForm.vue";
 import QuestionManager from "@/components/StudentComponent/QuestionManager.vue";
 import AllQuestions from "@/components/StudentComponent/AllQuestions.vue";
+import { useUserStore } from "../stores/userStore";
+import { computed, onMounted, reactive, ref, watch } from "vue";
+
+const userStore = useUserStore()
+
+const addingStudent = ref<boolean>(false)
+
+//const students = computed(() => {userStore.students})
+const students = ref([])
+//const students = reactive({test: getStudentsFromStore()})
+
+function getStudentsFromStore() {
+    return userStore.getStudents()
+}
+
+onMounted(() => {updateStudents()})
+
+async function updateStudents() {
+    //await userStore.getStudents().then((response => {students.value = response; console.log(response)}))
+}
+
+function openStudentForm() {
+    addingStudent.value = true
+}
+
+function closeStudentForm() {
+    addingStudent.value = false
+}
+
+async function removeStudent(id:number) {
+    await userStore.removeStudent(id)
+    console.log("removed")
+    updateStudents()
+}
+
+function test() {
+    //console.log(students.test)
+    removeStudent(2)
+}
 
 const TEACHER = true;
 const STUDENT = false;
@@ -14,14 +53,16 @@ const STUDENT = false;
 
 <template>
     <div v-if="TEACHER" class="d-flex m-0 teacher-display">
-        <Students class="border-end border-dark w-25"/>
+        <Students class="border-end border-dark w-25" :students="students" @open-student-form="openStudentForm" @remove-student="removeStudent"/>
         <div class="flex-fill">
             <DetailedQuestion class="h-75 p-3"/>
+            <button @click="test">Testing button</button>
             <Alert class="border-top border-dark p-3 pb-0"/>
         </div>
         <Questions class="border-start border-dark w-25"/>
-        <AddStudentForm v-if="true" class="position-absolute top-50 start-50 translate-middle"/>
+        <AddStudentForm v-if="addingStudent" class="position-absolute top-50 start-50 translate-middle" @close="closeStudentForm"/>
     </div>
+
     <div class="" v-if="STUDENT">
         <main class="d-flex justify-content-around align-items-center page-height">
             <AllQuestions/>

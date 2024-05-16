@@ -1,7 +1,7 @@
 import { parseAxiosError } from '../shared/parseAxiosError'
 import axiosAuth from '../shared/axiosAuth'
 
-async function getUserById (userId) {
+async function getUserById (userId: number) {
   try {
     // axiosAuth est une instance d'axios configurée pour ajouter le JWT à une requête nécessitant une authentification.
     // voir le fichier src/shared/axiosAuth.js
@@ -22,12 +22,8 @@ async function postUser(user: {email: string, password: string, name: string, id
 
 async function getUsers () {
   try {
-    // axiosAuth est une instance d'axios configurée pour ajouter le JWT à une requête nécessitant une authentification.
-    // voir le fichier src/shared/axiosAuth.js
-    const response = await axiosAuth.get(
-      // TODO : utiliser une variable d'environnement pour l'url de l'api rest
-      `http://127.0.0.1:3000/users/`
-    )
+    const response = await axiosAuth.get(`http://127.0.0.1:3000/users`)
+    console.log(response)
 
     return response.data
   } catch (error) {
@@ -35,8 +31,14 @@ async function getUsers () {
   }
 }
 
+async function deleteUser(userId:number) {
+  await axiosAuth.delete(`http://127.0.0.1:3000/users/${userId}`)
+  console.log("test")
+}
+
 export const userService = {
   getUserById,
   postUser,
-  getUsers
+  getUsers,
+  deleteUser
 }
