@@ -18,22 +18,35 @@ function deleteQuestion(id: number) {
 </script>
 
 <template>
-    <div class="border border-2 border-dark">
-        <ul class="">
-            <li class="border-bottom border-dark border-1 mt-3" v-for="(question, index) of questions">
-                {{ index + 1}}
-                {{ question.question }}
-                <button @click="deleteQuestion(question.id)" class="btn btn-primary">Supprimer</button>
+    <div class="border border-2 border-dark questions">
+        <ul>
+            <li class="border-bottom border-dark border-1 mt-2 d-flex justify-content-between" v-for="(question, index) of questions">
+                <div class="d-flex">
+                    {{ index + 1}}
+                    <div class="ms-2  text-break">
+                        {{ question.question }}
+                    </div>
+                </div>
+                <div @click="deleteQuestion(question.id)" class="text-danger me-2">Supprimer</div>
             </li>
         </ul>
     </div>
 </template>
 
 <style scoped>
-div {
+.questions {
     height: 600px;
     width: 500px;
 }
+
+.taille {
+    max-width: 100px;
+}
+
+li {
+    padding: 0;
+}
+
 ul {
     list-style: none;
     padding: 0;

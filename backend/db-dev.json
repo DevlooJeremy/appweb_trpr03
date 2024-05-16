@@ -6,25 +6,27 @@
       "name": "Emmett Brown",
       "id": 1,
       "role": "student"
+    },
+    {
+      "email": "xyz@courriel.com",
+      "password": "$2a$10$DMa6aDUAgqoTr07avUDduOjO2eaE3osvk8cQuzkdmjYrVspCfQ0Wu",
+      "name": "UwU",
+      "role": "student",
+      "id": 2
     }
   ],
   "questions": [
     {
+      "id": 1,
       "userId": 1,
-      "question": "J'ai inventé la machine à voyager dans le temps.",
-      "id": 1
+      "question": "UwU",
+      "priority": 1,
+      "isSuper": false
     },
     {
       "id": 2,
       "userId": 1,
-      "question": "Ayaya",
-      "priority": 1,
-      "isSuper": true
-    },
-    {
-      "id": 3,
-      "userId": 1,
-      "question": "XD",
+      "question": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
       "priority": 1,
       "isSuper": false
     }
