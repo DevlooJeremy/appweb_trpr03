@@ -2,33 +2,26 @@
   "users": [
     {
       "email": "test@test.com",
-      "password": "$2a$10$X0tVTJMYo./gE4jGsmybVuJV.rN2onxJ../7iVLwrp57z5S6ACJku",
+      "password": "$2a$10$/U4TD6TdllwpkXLdBzoagepGDpOGcRFTS6VHAnYGNeCKsuhpEWmX2",
       "name": "Emmett Brown",
       "id": 1,
       "role": "student"
-    },
-    {
-      "email": "xyz@courriel.com",
-      "password": "$2a$10$DMa6aDUAgqoTr07avUDduOjO2eaE3osvk8cQuzkdmjYrVspCfQ0Wu",
-      "name": "UwU",
-      "role": "student",
-      "id": 2
     }
   ],
   "questions": [
     {
-      "id": 1,
       "userId": 1,
-      "question": "UwU",
-      "priority": 1,
-      "isSuper": false
-    },
+      "question": "J'ai inventé la machine à voyager dans le temps.",
+      "id": 1
+    }
+  ],
+  "categories": [
     {
+      "id": 1,
+      "name": "Quick Question"
+    }, {
       "id": 2,
-      "userId": 1,
-      "question": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-      "priority": 1,
-      "isSuper": false
+      "name": "Long Question"
     }
   ]
 }

@@ -25,7 +25,8 @@ async function onSubmit() {
 <template>
     <main class="d-flex justify-content-around border border-dark border-2">
         <form @submit.prevent="onSubmit">
-            <textarea v-model="question" placeholder="edit me"></textarea>
+            <input class="form-control" type="text" placeholder="Sujet">
+            <textarea class="form-control" name="question" v-model="question" placeholder="Question" cols="50" rows="5"></textarea>
             <button class="btn btn-primary me-2">Lever</button>
             <select v-model="priority">
                 <option selected value="1">1</option>
@@ -34,6 +35,11 @@ async function onSubmit() {
                 <option value="4">4</option>
                 <option value="5">5</option>
             </select>
+            <select name="category" id="category">
+                <option>catégorie</option>
+            </select>
+            <label for="private">Privée</label>
+            <input type="checkbox" name="private" id="private">
             <label for="super">super</label>
             <input v-model="isSuper" type="checkbox" name="super" id="super">
         </form>
