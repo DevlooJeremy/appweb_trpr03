@@ -5,6 +5,7 @@ import DetailedQuestion from "../components/TeacherComponent/DetailedQuestion.vu
 import Alert from "../components/TeacherComponent/Alert.vue";
 import QuestionManager from "@/components/StudentComponent/QuestionManager.vue";
 import AllQuestions from "@/components/StudentComponent/AllQuestions.vue";
+import StudentQuestions from "@/components/StudentComponent/StudentQuestions.vue";
 import { ref, computed, onMounted } from 'vue'
 import { useProfileStore } from "@/stores/profileStore";
 
@@ -40,6 +41,7 @@ function switchPopupState() {
 
     <div v-if="role === 'student'">
         <main class="d-flex justify-content-around align-items-center page-height">
+            <StudentQuestions/>
             <AllQuestions/>
             <QuestionManager/>
         </main>

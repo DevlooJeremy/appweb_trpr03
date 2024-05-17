@@ -5,11 +5,15 @@ import { useQuestionStore } from '@/stores/questionStore';
 const questionStore = useQuestionStore();
 
 
-const questions = computed(() => questionStore.publicQuestions);
+const questions = computed(() => questionStore.questions);
 
 onMounted(() => {
-    questionStore.getAllPublicQuestions();
+    questionStore.getQuestions();
 })
+
+function deleteQuestion(id: number) {
+    questionStore.deleteQuestion(id);
+}
 
 </script>
 
@@ -23,6 +27,7 @@ onMounted(() => {
                         {{ question.question }}
                     </div>
                 </div>
+                <div @click="deleteQuestion(question.id)" class="text-danger me-2">Supprimer</div>
             </li>
         </ul>
     </div>
