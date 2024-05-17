@@ -1,5 +1,9 @@
 <script setup lang="ts">
 
+const props = defineProps({
+    popupWindowOpen: Boolean
+})
+
 const minutes: any = defineModel("minutes");
 const seconds: any = defineModel("seconds");
 

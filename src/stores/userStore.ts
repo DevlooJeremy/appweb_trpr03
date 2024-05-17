@@ -1,11 +1,19 @@
 import { defineStore } from 'pinia'
-import { computed, reactive, ref, watch } from 'vue'
+import { ref} from 'vue'
 import { userService } from '../services/userService'
 import { parseAxiosError } from '@/shared/parseAxiosError';
 
 export const useUserStore = defineStore('useUserStore', () => {
 
     const users = ref<any>()
+
+    async function getUserById(userId:number) {
+        try {
+            return await userService.getUserById(userId)
+        } catch (error) {
+            console.log(error)
+        }
+    }
 
     async function getUsers() {
         try {
@@ -20,7 +28,7 @@ export const useUserStore = defineStore('useUserStore', () => {
             userService.postUser({email: email, password: password, name: name, role: "student"})
             getUsers()
         } catch (error) {
-            console.log("erreur")
+            console.log(error)
         }
     }
 
@@ -29,7 +37,7 @@ export const useUserStore = defineStore('useUserStore', () => {
             await userService.deleteUser(id)
             getUsers()
         } catch (error) {
-            console.log("erreur")
+            console.log(error)
         }
     }
 
@@ -42,6 +50,7 @@ export const useUserStore = defineStore('useUserStore', () => {
     }
 
     return {
+        getUserById,
         getUsers,
         addStudent,
         removeStudent,

@@ -3,6 +3,11 @@ import axiosAuth from '../shared/axiosAuth'
 
 const URL = "http://127.0.0.1:3000/questions";
 
+async function getQuestionById(questionId:number) {
+    const response = await axiosAuth.get(URL + "/" + questionId);
+    return response.data;
+}
+
 async function getUserQuestions(userId: number) {
     const response = await axiosAuth.get(URL, {
         params: {
@@ -27,6 +32,7 @@ async function deleteQuestion(id: number) {
 }
 
 export const questionService = {
+    getQuestionById,
     getUserQuestions,
     getAllQuestions,
     postQuestion,

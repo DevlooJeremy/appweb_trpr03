@@ -2,27 +2,67 @@
 import { ref, computed, onMounted } from 'vue';
 import { useUserStore } from "../../stores/userStore";
 import AddStudentForm from "./AddStudentForm.vue"
+import MessagePopup from "./MessagePopup.vue";
+
+const STUDENT_REMOVAL_MESSAGE: string = "Vous êtes sur le point de supprimer un étudiant ET toutes ces questions! Voulez-vous procéder? Étudiant: "
+
+const props = defineProps({
+    popupWindowOpen: Boolean
+})
+
+const emit = defineEmits<{
+    (event: 'switchPopupState'): void
+}>()
 
 const userStore = useUserStore()
 
 const students = computed(() => userStore.users)
 
 const addingStudent = ref<boolean>(false)
-
-function openStudentForm() {
-    addingStudent.value = true
-}
-
-function closeStudentForm() {
-    addingStudent.value = false
-}
+const studentToRemove = ref<number>(0)
+const popupOpened = ref<boolean>(false)
+const popupMessage = ref<string>("Aucun message. Ceci est une erreur, veuillez appuyer sur «Annuler».")
 
 onMounted(() => {
     userStore.getUsers()
 })
 
-async function removeStudent(id:number) {
-    await userStore.removeStudent(id)
+function openStudentForm() {
+    if (!props.popupWindowOpen) {
+        emit('switchPopupState')
+        addingStudent.value = true
+    }
+}
+
+function closeStudentForm() {
+    emit('switchPopupState')
+    addingStudent.value = false
+}
+
+function openPopupMessage(message:string) {
+    if (!props.popupWindowOpen) {
+        emit('switchPopupState')
+        popupMessage.value = message
+        popupOpened.value = true
+    }
+}
+
+async function removeStudent(id:number, name:string) {
+    if (!props.popupWindowOpen) {
+        studentToRemove.value = id
+        openPopupMessage(STUDENT_REMOVAL_MESSAGE + name)
+    }
+}
+
+async function confirmFromPopup() {
+    await userStore.removeStudent(studentToRemove.value)
+    closePopup()
+}
+
+function closePopup() {
+    studentToRemove.value = 0
+    emit('switchPopupState')
+    popupOpened.value = false
 }
 
 function isStudent(role:string) {
@@ -38,10 +78,11 @@ function isStudent(role:string) {
         <div class="w-100" v-for="student of students">
             <div class="row py-2 border-bottom border-dark mx-3" v-if="isStudent(student.role)">
                 <div class="col text-center">{{student.name}}</div>
-                <div class="col text-center text-danger" @click="removeStudent(student.id)">Supprimer</div>
+                <div class="col text-center text-danger" @click="removeStudent(student.id, student.name)">Supprimer</div>
             </div>
         </div>
         <AddStudentForm v-if="addingStudent" class="position-absolute top-50 start-50 translate-middle" @close="closeStudentForm"/>
+        <MessagePopup v-if="popupOpened" class="position-absolute top-50 start-50 translate-middle" :message="popupMessage" @confirm="confirmFromPopup" @close="closePopup"/>
     </div>
 </template>
 
