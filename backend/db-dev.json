@@ -31,10 +31,8 @@
       "categoryId": 2,
       "subject": "NavXd",
       "priority": 2,
-      "isSuper": false,
-      "isPrivate": false
-    },
-    {
+      "isSuper": false
+    },{
       "id": 3,
       "userId": 2,
       "question": "Comment ce fait-il que mes 300 photos de chats sont disparues hier?",
@@ -42,16 +40,6 @@
       "subject": "Kitties",
       "priority": 1,
       "isSuper": true
-    },
-    {
-      "id": 4,
-      "userId": 2,
-      "question": "allo bonjour",
-      "categoryId": 1,
-      "subject": "allo",
-      "priority": 2,
-      "isSuper": true,
-      "isPrivate": false
     }
   ],
   "categories": [
