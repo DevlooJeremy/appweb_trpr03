@@ -6,6 +6,14 @@ export const useCategoryStore = defineStore('useCategoryStore', () => {
 
     const categories = ref<any>()
 
+    async function getCategoryById(id:number) {
+        try {
+            return await categoryService.getCategoryById(id)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
     async function getCategories() {
         try {
             categories.value = await categoryService.getCategories()
@@ -33,6 +41,7 @@ export const useCategoryStore = defineStore('useCategoryStore', () => {
     }
 
     return {
+        getCategoryById,
         getCategories,
         addCategory,
         removeCategory,

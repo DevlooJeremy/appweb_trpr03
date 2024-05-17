@@ -9,61 +9,38 @@
     },
     {
       "email": "student@email.com",
-      "password": "$2a$10$ted3PgItKJUbYMRulkC8hupW4LPgAIPWjhQjZ2ZuFqgODJhlNtc8W",
-      "name": "Glucose MPGlock",
-      "id": 2,
-      "role": "student"
-    },
-    {
-      "email": "xyz@courriel.com",
-      "password": "$2a$10$DMa6aDUAgqoTr07avUDduOjO2eaE3osvk8cQuzkdmjYrVspCfQ0Wu",
-      "name": "UwU",
+      "password": "$2a$10$M9AtrJknHSj6ruXHVKOx6eB3VU8b2/YxXZxsu40oL/ftz41n.0qqW",
+      "name": "Glucose",
       "role": "student",
-      "id": 3
+      "id": 2
     }
   ],
   "questions": [
     {
-      "id": 1,
-      "userId": 1,
-      "question": "J'ai inventé la machine à voyager dans le temps.",
-      "categoryId": 1,
-      "subject": "UwU",
-      "isSuper": false
-    },{
+      "id": 2,
       "userId": 1,
       "question": "Je suis la meilleure bar de navigation à avoir existé.",
       "categoryId": 2,
       "subject": "NavXd",
-      "id": 2,
+      "priority": 2,
       "isSuper": false
-    },{
+    },
+    {
+      "id": 3,
       "userId": 2,
       "question": "Comment ce fait-il que mes 300 photos de chats sont disparues hier?",
       "categoryId": 2,
       "subject": "Kitties",
-      "id": 3,
+      "priority": 1,
       "isSuper": true
-    },{
-      "userId": 2,
-      "question": "UwU",
-      "categoryId": 1,
-      "priority": 1,
-      "isSuper": false
-    },{
-      "id": 2,
-      "userId": 1,
-      "question": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-      "categoryId": 1,
-      "priority": 1,
-      "isSuper": false
     }
   ],
   "categories": [
     {
       "id": 1,
       "name": "Question courte"
-    }, {
+    },
+    {
       "id": 2,
       "name": "Question longue"
     }

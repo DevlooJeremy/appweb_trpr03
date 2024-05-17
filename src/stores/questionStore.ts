@@ -9,9 +9,18 @@ export const useQuestionStore = defineStore('useQuestionStoreId',() => {
     const questions = ref<any>();
     const authStore = useAuthStore()
 
+    async function getQuestionById(questionId:number) {
+        const response = await questionService.getQuestionById(questionId);
+        return response;
+    }
+
     async function getQuestions() {
         let userId = parseInt(authStore.getUserId);
         questions.value = await questionService.getUserQuestions(userId);
+    }
+
+    async function getAllQuestions() {
+        questions.value = await questionService.getAllQuestions();
     }
 
     async function getNextQuestionId() {
@@ -35,7 +44,9 @@ export const useQuestionStore = defineStore('useQuestionStoreId',() => {
 
     return {
         questions,
+        getQuestionById,
         getQuestions,
+        getAllQuestions,
         createQuestion,
         deleteQuestion
     }

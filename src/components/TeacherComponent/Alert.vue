@@ -1,4 +1,10 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+
+const props = defineProps({
+    popupWindowOpen: Boolean
+})
+
+</script>
 
 <template>
     <form class="d-flex flex-column" action="">

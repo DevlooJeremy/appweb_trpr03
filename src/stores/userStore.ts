@@ -7,6 +7,14 @@ export const useUserStore = defineStore('useUserStore', () => {
 
     const users = ref<any>()
 
+    async function getUserById(userId:number) {
+        try {
+            return await userService.getUserById(userId)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
     async function getUsers() {
         try {
             users.value = await userService.getUsers()
@@ -42,6 +50,7 @@ export const useUserStore = defineStore('useUserStore', () => {
     }
 
     return {
+        getUserById,
         getUsers,
         addStudent,
         removeStudent,

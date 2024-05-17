@@ -5,11 +5,7 @@ const URL = "http://127.0.0.1:3000/categories";
 
 async function getCategoryById (id: number) {
   try {
-    const response = await axiosAuth.get(URL, {
-      params: {
-          id: id
-      }
-  });
+    const response = await axiosAuth.get(URL + "/" + id);
 
     return response.data
   } catch (error) {

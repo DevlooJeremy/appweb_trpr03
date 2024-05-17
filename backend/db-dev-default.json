@@ -9,31 +9,37 @@
     },
     {
       "email": "student@email.com",
-      "password": "$2a$10$ted3PgItKJUbYMRulkC8hupW4LPgAIPWjhQjZ2ZuFqgODJhlNtc8W",
-      "name": "Glucose MPGlock",
+      "password": "$2a$10$M9AtrJknHSj6ruXHVKOx6eB3VU8b2/YxXZxsu40oL/ftz41n.0qqW",
+      "name": "Glucose",
       "role": "student",
       "id": 2
     }
   ],
   "questions": [
     {
+      "id": 1,
       "userId": 1,
       "question": "J'ai inventé la machine à voyager dans le temps.",
       "categoryId": 1,
       "subject": "UwU",
-      "id": 1
+      "priority": 5,
+      "isSuper": false
     },{
+      "id": 2,
       "userId": 1,
       "question": "Je suis la meilleure bar de navigation à avoir existé.",
       "categoryId": 2,
       "subject": "NavXd",
-      "id": 2
+      "priority": 2,
+      "isSuper": false
     },{
+      "id": 3,
       "userId": 2,
       "question": "Comment ce fait-il que mes 300 photos de chats sont disparues hier?",
       "categoryId": 2,
       "subject": "Kitties",
-      "id": 3
+      "priority": 1,
+      "isSuper": true
     }
   ],
   "categories": [
