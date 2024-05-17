@@ -1,5 +1,6 @@
 {
   "/users*": "/660/users$1",
   "/questions*": "/660/questions$1",
-  "/categories*": "/660/categories$1"
+  "/categories*": "/660/categories$1",
+  "/warnings*": "/660/warnings$1"
 }

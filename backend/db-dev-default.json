@@ -50,5 +50,12 @@
       "id": 2,
       "name": "Question longue"
     }
+  ],
+  "warnings": [
+    {
+      "id": 1,
+      "message": "N/M",
+      "isActive": false
+    }
   ]
 }

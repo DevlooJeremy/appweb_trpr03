@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, watch } from "vue"
+import { onMounted, ref, watch } from "vue"
 import { useUserStore } from "../../stores/userStore";
 import { useQuestionStore } from "../../stores/questionStore"
 import { useCategoryStore } from "../../stores/categoryStore";
@@ -24,12 +24,17 @@ const questionDetail = ref<string>()
 const popupOpened = ref<boolean>(false)
 const popupMessage = ref<string>("Aucun message. Ceci est une erreur, veuillez appuyer sur «Annuler».")
 
-const timer = ref<string>("00:00")
 const time = ref<number>(0)
+const timer = ref<string>("00:00")
+const timerRunning = ref<boolean>(false)
 
 const emit = defineEmits<{
   (event: 'switchPopupState'): void
 }>()
+
+onMounted(() => {
+  setInterval(() => {if(time.value > 0 && timerRunning.value) setTime(time.value - 1)}, 1000)
+})
 
 watch(() => props.questionId, () => {
   questionId.value = props.questionId
@@ -85,13 +90,20 @@ function closePopup() {
 }
 
 function startTimer() {
-  
+  timerRunning.value = true
 }
 
 function setTime(newTime: number) {
-  console.log("test")
   time.value = newTime
   timer.value = formatTime(newTime)
+}
+
+function stopTimer() {
+  timerRunning.value = false
+}
+
+function reinitialiseTimer() {
+  setTime(0)
 }
 
 function formatTime(timeInSec: number) {
@@ -123,7 +135,7 @@ function formatTime(timeInSec: number) {
     <p>{{ questionDetail??"Question détaillée." }}</p>
     <div class="mt-auto d-flex flex-column">
       <div class="btn text-danger btn-outline-dark border-2 fw-bold ms-auto m-2" @click="deleteQuestion">Supprimer</div>
-      <Timer class="border-top border-3 mt-2" :on-start-timer="startTimer" :on-set-time="setTime"/>
+      <Timer class="border-top border-3 mt-2" :popup-window-open="props.popupWindowOpen" @start-timer="startTimer" @set-time="setTime" @stop-timer="stopTimer" @reinitialise-timer="reinitialiseTimer"/>
       <MessagePopup v-if="popupOpened" class="position-absolute top-50 start-50 translate-middle" :message="popupMessage" @confirm="confirmFromPopup" @close="closePopup"/>
     </div>
   </div>

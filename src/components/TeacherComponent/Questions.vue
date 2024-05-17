@@ -88,8 +88,8 @@ function isInCorrespondingCategory(categoryId: number, idToVerify: number) {
         <div class="adding-button mb-2" @click="openCategoryForm">Créer catégorie +</div>
         <div class="w-100 border-top border-bottom border-dark" v-for="category of categories">
             <div class="row my-2">
-                <div class="col text-center text-muted fw-bold">{{ category.name }}</div>
-                <div class="col text-center text-danger" @click="removeCategory(category.id, category.name)">Supprimer</div>
+                <div class="col text-center text-muted fw-bold p-0">{{ category.name }}</div>
+                <div class="col text-center text-danger p-0" @click="removeCategory(category.id, category.name)">Supprimer</div>
             </div>
             <div v-for="question of questions">
                 <div class="row border border-dark rounded py-2 mx-3 my-1 question" :class="{'super-question': question.isSuper}" @click="openDetailedQuestion(question.id)" v-if="isInCorrespondingCategory(category.id, question.categoryId)">

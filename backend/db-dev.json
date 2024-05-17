@@ -24,8 +24,7 @@
       "subject": "UwU",
       "priority": 5,
       "isSuper": false
-    },
-    {
+    },{
       "id": 2,
       "userId": 1,
       "question": "Je suis la meilleure bar de navigation à avoir existé.",
@@ -59,10 +58,16 @@
     {
       "id": 1,
       "name": "Question courte"
-    },
-    {
+    }, {
       "id": 2,
       "name": "Question longue"
+    }
+  ],
+  "warnings": [
+    {
+      "id": 1,
+      "message": "N/M",
+      "isActive": false
     }
   ]
 }
