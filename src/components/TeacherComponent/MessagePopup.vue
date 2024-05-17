@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useUserStore } from "../../stores/userStore";
+import { onMounted, ref } from "vue";
 
 const props = defineProps({
     message: String
@@ -9,6 +9,12 @@ const emit = defineEmits<{
   (event: 'confirm'): void
   (event: 'close'): void
 }>()
+
+const isRed = ref<boolean>(false)
+
+onMounted(() => {
+    setInterval(() => {isRed.value = !isRed.value}, 750)
+})
 
 function confirm() {
     emit("confirm")
@@ -22,7 +28,7 @@ function close() {
 
 <template>
     <div class="d-flex flex-column align-items-center bg-white border border-dark border-2 rounded p-2 popupSize">
-        <h1 class="text-danger fw-bold text-center">Attention!</h1>
+        <h1 class="fw-bold text-center" :class="{'text-danger' : isRed}">Attention!</h1>
         <div class="mx-2">{{ props.message }}</div>
         <div>
             <div class="btn btn-outline-dark border-2 fw-bold m-2" @click="confirm">Confirmer</div>
@@ -33,6 +39,6 @@ function close() {
 
 <style scoped>
 .popupSize {
-    max-width: 250px;
+    max-width: 400px;
 }
 </style>

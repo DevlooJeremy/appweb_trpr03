@@ -77,8 +77,8 @@ function isStudent(role:string) {
         <div class="addingButton" @click="openStudentForm">Ajouter +</div>
         <div class="w-100" v-for="student of students">
             <div class="row py-2 border-bottom border-dark mx-3" v-if="isStudent(student.role)">
-                <div class="col text-center">{{student.name}}</div>
-                <div class="col text-center text-danger" @click="removeStudent(student.id, student.name)">Supprimer</div>
+                <div class="col text-center  p-0">{{student.name}}</div>
+                <div class="col text-center text-danger  p-0" @click="removeStudent(student.id, student.name)">Supprimer</div>
             </div>
         </div>
         <AddStudentForm v-if="addingStudent" class="position-absolute top-50 start-50 translate-middle" @close="closeStudentForm"/>

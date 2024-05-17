@@ -15,22 +15,30 @@ const emit = defineEmits<{
 }>()
 
 function startTimer() {
-    if (minutes.value > 0 && seconds.value > 0) {
-        emit("setTime", timeToNumber())
+    if (!props.popupWindowOpen) {
+        if (minutes.value > 0 || seconds.value > 0) {
+            emit("setTime", timeToNumber())
+        }
+        emit("startTimer")
+        minutes.value = null
+        seconds.value = null
     }
-    emit("startTimer")
 }
 
 function stopTimer() {
-    emit("stopTimer")
+    if (!props.popupWindowOpen) {
+        emit("stopTimer")
+    }
 }
 
 function reinitialiseTimer() {
-    emit("reinitialiseTimer")
+    if (!props.popupWindowOpen) {
+        emit("reinitialiseTimer")
+    }
 }
 
 function timeToNumber(): number {
-    return (minutes*60) + seconds
+    return ((minutes.value??0)*60) + seconds.value??0
 }
 
 </script>

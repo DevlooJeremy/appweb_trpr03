@@ -17,6 +17,14 @@
   ],
   "questions": [
     {
+      "id": 1,
+      "userId": 1,
+      "question": "J'ai inventé la machine à voyager dans le temps.",
+      "categoryId": 1,
+      "subject": "UwU",
+      "priority": 5,
+      "isSuper": false
+    },{
       "id": 2,
       "userId": 1,
       "question": "Je suis la meilleure bar de navigation à avoir existé.",
@@ -24,8 +32,7 @@
       "subject": "NavXd",
       "priority": 2,
       "isSuper": false
-    },
-    {
+    },{
       "id": 3,
       "userId": 2,
       "question": "Comment ce fait-il que mes 300 photos de chats sont disparues hier?",
@@ -39,10 +46,16 @@
     {
       "id": 1,
       "name": "Question courte"
-    },
-    {
+    }, {
       "id": 2,
       "name": "Question longue"
+    }
+  ],
+  "warnings": [
+    {
+      "id": 1,
+      "message": "N/M",
+      "isActive": false
     }
   ]
 }
