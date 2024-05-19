@@ -31,41 +31,42 @@ onMounted(() => {
     isPrivate.value = false;
 })
 
-function isSubjectValid(): boolean {
-    if (subject.value == undefined || subject.value.trim() == "") {
+function isSubjectValid(subject: string): boolean {
+    if (subject == undefined || subject.trim() == "") {
         return false;
     }
     return true;
 }
 
-function isQuestionValid(): boolean {
-    if (question.value == undefined || question.value.trim() == "") {
+function isQuestionValid(question: string): boolean {
+    if (question == undefined || question.trim() == "") {
         return false;
     }
     return true;
 }
 
-function isCategoryValid(): boolean {
-    if (categoryModel.value == undefined) {
+function isCategoryValid(category: number): boolean {
+    if (category == undefined) {
         return false;
     }
     return true;
 }
+
 
 async function onSubmit() {
-    if (!isSubjectValid()) {
+    if (!isSubjectValid(subject.value)) {
         subjectOnError.value = true;
         questionOnError.value = false;
         categoryOnError.value = false;
         return;
     };
-    if (!isQuestionValid()) {
+    if (!isQuestionValid(question.value)) {
         questionOnError.value = true;
         subjectOnError.value = false;
         categoryOnError.value = false;
         return;
     };
-    if (!isCategoryValid()) {
+    if (!isCategoryValid(parseInt(categoryModel.value))) {
         categoryOnError.value = true;
         subjectOnError.value = false;
         questionOnError.value = false;
@@ -75,8 +76,12 @@ async function onSubmit() {
     questionOnError.value = false;
     categoryOnError.value = false;
     emit('update', question.value, parseInt(categoryModel.value), subject.value, parseInt(priority.value), isSuper.value, isPrivate.value);
-    //let questionId: number = await questionStore.createQuestion(question.value, parseInt(categoryModel.value), subject.value, parseInt(priority.value), isSuper.value, isPrivate.value);
 }
+defineExpose({
+    isSubjectValid,
+    isQuestionValid,
+    isCategoryValid
+})
 </script>
 
 <template>
@@ -101,7 +106,7 @@ async function onSubmit() {
                     <div>
                         <label for="category">Choisir une catégorie:</label>
                         <select v-model="categoryModel" name="category" id="category">
-                            <option v-for="category of props.categories" :value="category.id">{{ category.name }}</option>
+                            <option v-for="category of props.categories" name="category" :value="category.id">{{ category.name }}</option>
                         </select>
                     </div>
                     <div>
