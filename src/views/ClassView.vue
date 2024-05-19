@@ -36,6 +36,7 @@ const warningMessage = computed(() => (warningStore.warning??{message: "N/M"}).m
 onMounted(() => {
     profileStore.getProfile();
     setInterval(() => {warningStore.getWarning()}, 1000)
+    userStore.getUsers()
 })
 
 function openDetailedQuestion(id: number) {
@@ -51,7 +52,23 @@ function closeWarning() {
 }
 //#endregion
 
+
 //#region Teacher
+//#region Students
+const students = computed(() => userStore.users)
+
+async function addStudent(name:string, password:string, email:string) {
+    userStore.addStudent(name, password, email)
+}
+
+async function removeStudent(id:number) {
+    await userStore.removeStudent(id)
+}
+//#region AddStudentForm
+
+//#endregion
+//#endregion
+
 //#region Warning
 function sendWarning(message:string) {
     warningStore.changeWarningMessage(message)
@@ -69,7 +86,7 @@ function sendWarning(message:string) {
 
 <template>
     <div v-if="role === 'teacher'" class="d-flex m-0 page-height">
-        <Students class="border-end border-dark w-25" :popup-window-open="popupWindowOpen" @switch-popup-state="switchPopupState"/>
+        <Students class="border-end border-dark w-25" :students="students" :popup-window-open="popupWindowOpen" @add-student="addStudent" @remove-student="removeStudent" @switch-popup-state="switchPopupState"/>
         <div class="flex-fill">
             <DetailedQuestion class="h-75 p-3" :popup-window-open="popupWindowOpen" :question-id="detailedQuestionId"/>
             <Alert class="border-top border-dark p-3 pb-0" :popup-window-open="popupWindowOpen" @send-warning="sendWarning"/>

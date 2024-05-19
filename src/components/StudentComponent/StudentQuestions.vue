@@ -18,18 +18,28 @@ function deleteQuestion(id: number) {
 </script>
 
 <template>
-    <div class="border border-2 border-dark questions">
-        <ul>
-            <li class="border-bottom border-dark border-1 mt-2 d-flex justify-content-between" v-for="(question, index) of questions">
-                <div class="d-flex">
-                    {{ index + 1}}
-                    <div class="ms-2  text-break">
-                        {{ question.question }}
+    <div>
+        <h1 class="text-center">Questions publiques</h1>
+        <div class="border border-2 border-dark questions">
+            <ul>
+                <li v-for="(question, index) of questions">
+                    <div class="border-bottom border-dark border-1 p-2 d-flex" :class="{'super':question.isSuper}">
+                        <h4 class="fw-bold">{{ index + 1}}</h4>
+                        <div class="ms-2  text-break">
+                            {{ question.question }}
+                        </div>
+                        <div @click="deleteQuestion(question.id)" class="text-danger fw-bold border border-dark bg-white rounded p-1 m-2 align-self-center">Supprimer</div>
                     </div>
+<<<<<<< HEAD
                 </div>
                 <div @click="deleteQuestion(question.id)" name="deleteQuestion" class="text-danger me-2">Supprimer</div>
             </li>
         </ul>
+=======
+                </li>
+            </ul>
+        </div>
+>>>>>>> 373d19bba3eebc0547d9795cc14511cdb6a1d1e2
     </div>
 </template>
 
@@ -38,7 +48,9 @@ function deleteQuestion(id: number) {
     height: 600px;
     width: 500px;
 }
-
+.super {
+    background-color: gold;
+}
 .taille {
     max-width: 100px;
 }
