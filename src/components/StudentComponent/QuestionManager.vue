@@ -83,7 +83,7 @@ async function onSubmit() {
     <main>
         <h1 class="text-center">Créer une question</h1>
             <form class="border border-dark border-2 p-3" @submit.prevent="onSubmit">
-                <input v-model="subject" class="form-control" type="text" placeholder="Sujet">
+                <input name="subject" v-model="subject" class="form-control" type="text" placeholder="Sujet">
                 <div v-if="subjectOnError" class="px-2 py-1 mt-3 bg-danger text-white rounded">{{ SUBJECT_ERROR_MESSAGE }}</div>
                 <textarea class="form-control my-3" name="question" v-model="question" placeholder="Question" cols="50" rows="5"></textarea>
                 <div v-if="questionOnError" class="px-2 py-1 mb-3 bg-danger text-white rounded">{{ QUESTION_ERROR_MESSAGE }}</div>
@@ -115,7 +115,7 @@ async function onSubmit() {
                 </div>
                 <div v-if="categoryOnError" class="px-2 py-1 mb-3 bg-danger text-white rounded">{{ CATEGORY_ERROR_MESSAGE }}</div>
                 <div class="d-flex">
-                    <button class="btn btn-primary ms-auto m-2">Envoyer la question</button>
+                    <button name="submit" class="btn btn-primary ms-auto m-2">Envoyer la question</button>
                 </div>
             </form>
             

@@ -28,18 +28,11 @@ function deleteQuestion(id: number) {
                         <div class="ms-2  text-break">
                             {{ question.question }}
                         </div>
-                        <div @click="deleteQuestion(question.id)" class="text-danger fw-bold border border-dark bg-white rounded p-1 m-2 align-self-center">Supprimer</div>
+                        <div @click="deleteQuestion(question.id)" name="deleteQuestion" class="text-danger fw-bold border border-dark bg-white rounded p-1 m-2 align-self-center">Supprimer</div>
                     </div>
-<<<<<<< HEAD
-                </div>
-                <div @click="deleteQuestion(question.id)" name="deleteQuestion" class="text-danger me-2">Supprimer</div>
-            </li>
-        </ul>
-=======
                 </li>
             </ul>
         </div>
->>>>>>> 373d19bba3eebc0547d9795cc14511cdb6a1d1e2
     </div>
 </template>
 

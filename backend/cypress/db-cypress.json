@@ -2,7 +2,7 @@
   "users": [
     {
       "email": "hugo@courriel.com",
-      "password": "$2a$10$M8KRHDSZP66ghFMTLTXOZeRSIapGCneqVp5I6/UBeNJDAaPuwzbTW",
+      "password": "$2a$10$ybjbIgDVgYE5sEKI4AxFtOca7slnFD2SVbPB1hNSIbzckvRPu9NAm",
       "name": "devloo",
       "role": "teacher",
       "id": 1
