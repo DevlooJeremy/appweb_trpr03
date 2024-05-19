@@ -1,14 +1,14 @@
 <script setup lang="ts">
-import { useAuthStore } from '@/stores/authStore'
-import { useCategoryStore } from '@/stores/categoryStore';
-import { useQuestionStore } from '@/stores/questionStore';
 import { computed, onMounted, ref } from 'vue'
 
-const authStore = useAuthStore();
-const questionStore = useQuestionStore();
-const categoryStore = useCategoryStore();
 
-const categories = computed<any>(() => categoryStore.categories);
+const props = defineProps({
+    categories: Array<any>
+})
+
+const emit = defineEmits<{
+    (event: 'update', question: string, category: number, subject: string, priority: number, isSuper: boolean, isPrivate: boolean ): void
+}>()
 
 const isSuper = defineModel<boolean>("isSuper");
 const question = defineModel<string>("question");
@@ -29,7 +29,6 @@ onMounted(() => {
     isSuper.value = false;
     priority.value = "1";
     isPrivate.value = false;
-    categoryStore.getCategories();
 })
 
 function isSubjectValid(): boolean {
@@ -75,7 +74,8 @@ async function onSubmit() {
     subjectOnError.value = false;
     questionOnError.value = false;
     categoryOnError.value = false;
-    let questionId: number = await questionStore.createQuestion(question.value, parseInt(categoryModel.value), subject.value, parseInt(priority.value), isSuper.value, isPrivate.value);
+    emit('update', question.value, parseInt(categoryModel.value), subject.value, parseInt(priority.value), isSuper.value, isPrivate.value);
+    //let questionId: number = await questionStore.createQuestion(question.value, parseInt(categoryModel.value), subject.value, parseInt(priority.value), isSuper.value, isPrivate.value);
 }
 </script>
 
@@ -101,7 +101,7 @@ async function onSubmit() {
                     <div>
                         <label for="category">Choisir une catégorie:</label>
                         <select v-model="categoryModel" name="category" id="category">
-                            <option v-for="category of categories" :value="category.id">{{ category.name }}</option>
+                            <option v-for="category of props.categories" :value="category.id">{{ category.name }}</option>
                         </select>
                     </div>
                     <div>

@@ -2,7 +2,7 @@
   "users": [
     {
       "email": "test@test.com",
-      "password": "$2a$10$YZdFFnjPDzsNhBMmMvWbXu1h6fTmxwxNqsh4fly7.OK5jHOrkbyxW",
+      "password": "$2a$10$/U4TD6TdllwpkXLdBzoagepGDpOGcRFTS6VHAnYGNeCKsuhpEWmX2",
       "name": "Emmett Brown",
       "role": "teacher",
       "id": 1
@@ -13,13 +13,6 @@
       "name": "Glucose",
       "role": "student",
       "id": 2
-    },
-    {
-      "email": "uwu@courriel.com",
-      "password": "$2a$10$.em09.74hRhkz/duRppvB.87pl5n6tk4OumxysghHtQg9coeukLCS",
-      "name": "UwU",
-      "role": "student",
-      "id": 3
     }
   ],
   "questions": [
@@ -40,12 +33,8 @@
       "subject": "NavXd",
       "priority": 2,
       "isSuper": false
-<<<<<<< HEAD
     },
     {
-=======
-    },{
->>>>>>> 373d19bba3eebc0547d9795cc14511cdb6a1d1e2
       "id": 3,
       "userId": 2,
       "question": "Comment ce fait-il que mes 300 photos de chats sont disparues hier?",

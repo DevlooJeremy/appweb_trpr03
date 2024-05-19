@@ -37,6 +37,7 @@ onMounted(() => {
     profileStore.getProfile();
     setInterval(() => {warningStore.getWarning()}, 1000)
     userStore.getUsers()
+    categoryStore.getCategories()
 })
 
 function openDetailedQuestion(id: number) {
@@ -78,7 +79,11 @@ function sendWarning(message:string) {
 //#endregion
 
 //#region Student
+    const categories = computed(() => categoryStore.categories)
 
+    function handleAddQuestion(question: string, category: number, subject: string, priority: number, isSuper: boolean, isPrivate: boolean) {
+        questionStore.createQuestion(question,category,subject,priority,isSuper,isPrivate);
+    }
 //#endregion
 
 
@@ -98,7 +103,7 @@ function sendWarning(message:string) {
         <main class="d-flex justify-content-around align-items-center page-height">
             <StudentQuestions/>
             <AllQuestions/>
-            <QuestionManager/>
+            <QuestionManager :categories="categories" @update="handleAddQuestion"/>
         </main>
     </div>
 
