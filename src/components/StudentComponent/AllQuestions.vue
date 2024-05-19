@@ -1,14 +1,6 @@
 <script setup lang="ts">
-import { onMounted, computed } from 'vue';
-import { useQuestionStore } from '@/stores/questionStore';
-
-const questionStore = useQuestionStore();
-
-
-const questions = computed(() => questionStore.publicQuestions);
-
-onMounted(() => {
-    questionStore.getAllPublicQuestions();
+const props = defineProps({
+    questions: Array<any>
 })
 
 </script>
@@ -18,7 +10,7 @@ onMounted(() => {
         <h1 class="text-center">Questions publiques</h1>
         <div class="border border-2 border-dark questions">
             <ul>
-                <li v-for="(question, index) of questions">
+                <li name="questions" v-for="(question, index) of props.questions">
                     <div class="border-bottom border-dark border-1 p-2 d-flex" :class="{'super':question.isSuper}">
                         <h4 class="fw-bold">{{ index + 1}}</h4>
                         <div class="ms-2  text-break">

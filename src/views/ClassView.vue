@@ -38,6 +38,8 @@ onMounted(() => {
     setInterval(() => {warningStore.getWarning()}, 1000)
     userStore.getUsers()
     categoryStore.getCategories()
+    questionStore.getQuestions();
+    questionStore.getAllPublicQuestions();
 })
 
 function openDetailedQuestion(id: number) {
@@ -80,10 +82,17 @@ function sendWarning(message:string) {
 
 //#region Student
     const categories = computed(() => categoryStore.categories)
+    const questions = computed(() => questionStore.questions)
+    const publicQuestions = computed(() => questionStore.publicQuestions)
 
     function handleAddQuestion(question: string, category: number, subject: string, priority: number, isSuper: boolean, isPrivate: boolean) {
         questionStore.createQuestion(question,category,subject,priority,isSuper,isPrivate);
     }
+
+    function handleDeleteQuestion(questionId: number) {
+        questionStore.deleteQuestion(questionId)
+    }
+
 //#endregion
 
 
@@ -101,8 +110,8 @@ function sendWarning(message:string) {
 
     <div v-if="role === 'student'">
         <main class="d-flex justify-content-around align-items-center page-height">
-            <StudentQuestions/>
-            <AllQuestions/>
+            <StudentQuestions :questions="questions" @update="handleDeleteQuestion"/>
+            <AllQuestions :questions="publicQuestions"/>
             <QuestionManager :categories="categories" @update="handleAddQuestion"/>
         </main>
     </div>

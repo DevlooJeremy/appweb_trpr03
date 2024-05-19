@@ -1,8 +1,6 @@
-import { vi, describe, it, expect } from 'vitest'
+import { describe, it, expect } from 'vitest'
 import { mount } from '@vue/test-utils'
 import QuestionManager from '../StudentComponent/QuestionManager.vue'
-import { ref } from 'vue'
-import { mock } from 'node:test'
 
 describe('QuestionManagerTest', () => {
     it('QuestionManager displays categories in the select input field', () => {

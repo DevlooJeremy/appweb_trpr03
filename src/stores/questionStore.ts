@@ -38,12 +38,14 @@ export const useQuestionStore = defineStore('useQuestionStoreId',() => {
         let nextQuestionId: number = await getNextQuestionId();
         const response = await questionService.postQuestion({id: nextQuestionId, userId: userId, question: question, categoryId: categoryId, subject: subject, priority: priority, isSuper: isSuper, isPrivate: isPrivate});
         getQuestions();
+        getAllPublicQuestions();
         return response.id;
     }
 
     async function deleteQuestion(id: number) {
         await questionService.deleteQuestion(id);
         getQuestions();
+        getAllPublicQuestions();
     }
 
 
