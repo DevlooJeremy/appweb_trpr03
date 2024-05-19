@@ -1,12 +1,10 @@
 <script setup lang="ts">
 import { ref } from "vue";
-import { useUserStore } from "../../stores/userStore";
 
 const emit = defineEmits<{
-  (event: 'close'): void
+    (event: 'addStudent', name:string, password:string, email:string): void,
+    (event: 'close'): void
 }>()
-
-const userStore = useUserStore()
 
 const completeName: any = defineModel("completeName");
 const password: any = defineModel("password");
@@ -27,7 +25,7 @@ function addUser() {
     validatePassword()
     validateEmail()
     if (!hasError.value) {
-        userStore.addStudent(completeName.value, password.value, email.value)
+        emit('addStudent', completeName.value, password.value, email.value)
         close()
     }
 }
@@ -84,15 +82,15 @@ function validateEmail(){
 <template>
     <form class="d-flex flex-column bg-white border border-primary border-2 rounded p-2" action="">
         <h1 class="text-center">Ajouter un élève</h1>
-        <input class="m-1" type="text" v-model="completeName" placeholder="Nom complet">
-        <div v-if="nameErrorShown" class="mx-1 px-1 bg-danger text-white text-center rounded">{{ nameErrorMessage }}</div>
-        <input class="m-1" type="text" v-model="password" placeholder="Mot de passe">
-        <div v-if="passwordErrorShown" class="mx-1 px-1 bg-danger text-white text-center rounded">{{ passwordErrorMessage }}</div>
-        <input class="m-1" type="email" v-model="email" placeholder="Adresse courriel">
-        <div v-if="emailErrorShown" class="mx-1 px-1 bg-danger text-white text-center rounded">{{ emailErrorMessage }}</div>
+        <input class="m-1" type="text" v-model="completeName" placeholder="Nom complet" name="name">
+        <div v-if="nameErrorShown" class="mx-1 px-1 bg-danger text-white text-center rounded" name="nameError">{{ nameErrorMessage }}</div>
+        <input class="m-1" type="text" v-model="password" placeholder="Mot de passe" name="password">
+        <div v-if="passwordErrorShown" class="mx-1 px-1 bg-danger text-white text-center rounded" name="passwordError">{{ passwordErrorMessage }}</div>
+        <input class="m-1" type="email" v-model="email" placeholder="Adresse courriel" name="email">
+        <div v-if="emailErrorShown" class="mx-1 px-1 bg-danger text-white text-center rounded" name="emailError">{{ emailErrorMessage }}</div>
         <div class="ms-auto">
-            <div class="btn btn-outline-dark border-2 fw-bold m-2" @click="addUser">Ajouter</div>
-            <div class="btn btn-outline-dark border-2 fw-bold m-2" @click="close">Annuler</div>
+            <div class="btn btn-outline-dark border-2 fw-bold m-2" @click="addUser" name="addButton">Ajouter</div>
+            <div class="btn btn-outline-dark border-2 fw-bold m-2" @click="close" name="cancelButton">Annuler</div>
         </div>
     </form>
 </template>
