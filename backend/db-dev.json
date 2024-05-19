@@ -2,7 +2,7 @@
   "users": [
     {
       "email": "test@test.com",
-      "password": "$2a$10$/U4TD6TdllwpkXLdBzoagepGDpOGcRFTS6VHAnYGNeCKsuhpEWmX2",
+      "password": "$2a$10$YZdFFnjPDzsNhBMmMvWbXu1h6fTmxwxNqsh4fly7.OK5jHOrkbyxW",
       "name": "Emmett Brown",
       "role": "teacher",
       "id": 1
@@ -13,6 +13,13 @@
       "name": "Glucose",
       "role": "student",
       "id": 2
+    },
+    {
+      "email": "uwu@courriel.com",
+      "password": "$2a$10$.em09.74hRhkz/duRppvB.87pl5n6tk4OumxysghHtQg9coeukLCS",
+      "name": "UwU",
+      "role": "student",
+      "id": 3
     }
   ],
   "questions": [
@@ -24,15 +31,15 @@
       "subject": "UwU",
       "priority": 5,
       "isSuper": false
-    },{
+    },
+    {
       "id": 2,
       "userId": 1,
       "question": "Je suis la meilleure bar de navigation à avoir existé.",
       "categoryId": 2,
       "subject": "NavXd",
       "priority": 2,
-      "isSuper": false,
-      "isPrivate": false
+      "isSuper": false
     },
     {
       "id": 3,
@@ -42,23 +49,14 @@
       "subject": "Kitties",
       "priority": 1,
       "isSuper": true
-    },
-    {
-      "id": 4,
-      "userId": 2,
-      "question": "allo bonjour",
-      "categoryId": 1,
-      "subject": "allo",
-      "priority": 2,
-      "isSuper": true,
-      "isPrivate": false
     }
   ],
   "categories": [
     {
       "id": 1,
       "name": "Question courte"
-    }, {
+    },
+    {
       "id": 2,
       "name": "Question longue"
     }

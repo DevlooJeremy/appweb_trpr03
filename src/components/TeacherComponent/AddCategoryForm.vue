@@ -23,7 +23,7 @@ function close() {
 <template>
     <form class="d-flex flex-column bg-white border border-primary border-2 rounded p-2" action="">
         <h1 class="text-center">Ajouter une catégorie</h1>
-        <input class="m-1" type="text" v-model="name" placeholder="Nom de la catégorie">
+        <input name="add" class="m-1" type="text" v-model="name" placeholder="Nom de la catégorie">
         <div class="ms-auto">
             <div class="btn btn-outline-dark border-2 fw-bold m-2" @click="addUser">Ajouter</div>
             <div class="btn btn-outline-dark border-2 fw-bold m-2" @click="close">Annuler</div>

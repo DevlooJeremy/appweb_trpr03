@@ -25,11 +25,11 @@ function close() {
 <template>
     <form class="d-flex flex-column bg-white border border-primary border-2 rounded p-2" action="">
         <h1 class="text-center">Ajouter un élève</h1>
-        <input class="m-1" type="text" v-model="completeName" placeholder="Nom complet">
-        <input class="m-1" type="text" v-model="password" placeholder="Mot de passe">
-        <input class="m-1" type="email" v-model="email" placeholder="Adresse courriel">
+        <input name="name" class="m-1" type="text" v-model="completeName" placeholder="Nom complet">
+        <input name="password" class="m-1" type="text" v-model="password" placeholder="Mot de passe">
+        <input name="email" class="m-1" type="email" v-model="email" placeholder="Adresse courriel">
         <div class="ms-auto">
-            <div class="btn btn-outline-dark border-2 fw-bold m-2" @click="addUser">Ajouter</div>
+            <div name="submit" class="btn btn-outline-dark border-2 fw-bold m-2" @click="addUser">Ajouter</div>
             <div class="btn btn-outline-dark border-2 fw-bold m-2" @click="close">Annuler</div>
         </div>
     </form>

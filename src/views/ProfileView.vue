@@ -91,13 +91,13 @@ function onSubmit() {
 
   <div>
     <form @submit.prevent="onSubmit">
-      <input v-model="newPassword" type="password" placeholder="nouveau mot de passe">
+      <input v-model="newPassword" name="newPassword" type="password" placeholder="nouveau mot de passe">
       <div class="p-3 mb-2 bg-danger text-white" v-if="passwordNotLongEnoughError">{{ newPasswordErrorMessage }}</div>
       <div class="p-3 mb-2 bg-danger text-white" v-if="newPasswordOnError">{{ newPasswordErrorMessage }}</div>
-      <input v-model="passwordConfirmation" type="password" placeholder="confirmation du mot de passe">
+      <input v-model="passwordConfirmation" name="passwordConfirmation" type="password" placeholder="confirmation du mot de passe">
       <div class="p-3 mb-2 bg-danger text-white" v-if="passwordConfirmationOnError">{{ passwordConfirmationErrorMessage }}</div>
       <div class="p-3 mb-2 bg-danger text-white" v-if="passwordNotIdenticalError">{{ passwordConfirmationErrorMessage }}</div>
-      <button class="btn btn-primary">changer</button>
+      <button name="submit" class="btn btn-primary">changer</button>
     </form>
   </div>
 </template>

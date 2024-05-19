@@ -82,11 +82,11 @@ async function onSubmit() {
 <template>
     <main class="d-flex justify-content-around border border-dark border-2">
         <form @submit.prevent="onSubmit">
-            <input v-model="subject" class="form-control" type="text" placeholder="Sujet">
+            <input v-model="subject" class="form-control" name="subject" type="text" placeholder="Sujet">
             <div v-if="subjectOnError" class="p-3 mb-2 bg-danger text-white">{{ SUBJECT_ERROR_MESSAGE }}</div>
             <textarea class="form-control" name="question" v-model="question" placeholder="Question" cols="50" rows="5"></textarea>
             <div v-if="questionOnError" class="p-3 mb-2 bg-danger text-white">{{ QUESTION_ERROR_MESSAGE }}</div>
-            <button class="btn btn-primary me-2">Lever</button>
+            <button class="btn btn-primary me-2" name="submit">Lever</button>
             <select v-model="priority">
                 <option selected value="1">1</option>
                 <option value="2">2</option>

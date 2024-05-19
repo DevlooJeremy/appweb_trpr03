@@ -85,7 +85,7 @@ function isInCorrespondingCategory(categoryId: number, idToVerify: number) {
 <template>
     <div class="d-flex flex-column align-items-center py-3">
         <h1 class="title">Questions</h1>
-        <div class="adding-button mb-2" @click="openCategoryForm">Créer catégorie +</div>
+        <div  name="addCategory" class="adding-button mb-2" @click="openCategoryForm">Créer catégorie +</div>
         <div class="w-100 border-top border-bottom border-dark" v-for="category of categories">
             <div class="row my-2">
                 <div class="col text-center text-muted fw-bold p-0">{{ category.name }}</div>

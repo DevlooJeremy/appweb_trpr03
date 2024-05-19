@@ -27,7 +27,7 @@ function deleteQuestion(id: number) {
                         {{ question.question }}
                     </div>
                 </div>
-                <div @click="deleteQuestion(question.id)" class="text-danger me-2">Supprimer</div>
+                <div @click="deleteQuestion(question.id)" name="deleteQuestion" class="text-danger me-2">Supprimer</div>
             </li>
         </ul>
     </div>

@@ -2,6 +2,12 @@
   "users": [
   
   ],
-  "comments": [
+  "questions": [
+  ],
+  "categories": [
+    {
+      "id": 1,
+      "name": "Question longue"
+    }
   ]
 }
