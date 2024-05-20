@@ -52,8 +52,8 @@ describe('QuestionManagerTest', () => {
         const answer = wrapper.vm.isCategoryValid(1)
         expect(answer).toBe(true)
     })
-    /*
-    it('when questionForm is submitted question is emitted to view', async () => {
+
+    it('when questionForm is submitted question is emitted to view', () => {
         const categories = [
             {
                 id: 1,
@@ -71,11 +71,10 @@ describe('QuestionManagerTest', () => {
         wrapper.find('textarea[name=question]').setValue("testQuestion")
         wrapper.find('select[name=category]').setValue("2")
 
-        wrapper.find('button[name=submit]').trigger('click')
+        wrapper.find('form').trigger('submit')
 
-        await wrapper.vm.$nextTick()
-
-        expect(wrapper.emitted()).toHaveProperty("update")
+        const emittedEvent = wrapper.emitted('addQuestion')
+        expect(emittedEvent).toBeTruthy()
     })
-*/
+
 })

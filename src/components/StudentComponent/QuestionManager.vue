@@ -7,7 +7,7 @@ const props = defineProps({
 })
 
 const emit = defineEmits<{
-    (event: 'update', question: string, category: number, subject: string, priority: number, isSuper: boolean, isPrivate: boolean ): void
+    (event: 'addQuestion', question: string, category: number, subject: string, priority: number, isSuper: boolean, isPrivate: boolean ): void
 }>()
 
 const isSuper = defineModel<boolean>("isSuper");
@@ -75,7 +75,7 @@ async function onSubmit() {
     subjectOnError.value = false;
     questionOnError.value = false;
     categoryOnError.value = false;
-    emit('update', question.value, parseInt(categoryModel.value), subject.value, parseInt(priority.value), isSuper.value, isPrivate.value);
+    emit('addQuestion', question.value, parseInt(categoryModel.value), subject.value, parseInt(priority.value), isSuper.value, isPrivate.value);
 }
 defineExpose({
     isSubjectValid,

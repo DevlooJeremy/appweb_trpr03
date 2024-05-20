@@ -1,18 +1,11 @@
 {
   "users": [
     {
-      "email": "jeremy@courriel.com",
-      "password": "$2a$10$LpyH0RcnhPnC/jnPqepV3u8jFmxk6nAuHz1i95EwimvrFdWnelxcO",
-      "name": "jeremy devloo",
-      "role": "student",
-      "id": 1
-    },
-    {
       "email": "hugo@courriel.com",
-      "password": "$2a$10$tyPiuUTOHimhEIaojnIEte0DgRjksfjqrsN3I2rTrCtxP3Za6isT.",
+      "password": "$2a$10$AUzmt0uekGkD1z46SwOpcemNEQZUSqNznZk9Brk2EZpi9u1si9Oji",
       "name": "devloo",
       "role": "teacher",
-      "id": 2
+      "id": 1
     }
   ],
   "questions": [],

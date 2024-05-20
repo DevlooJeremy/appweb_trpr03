@@ -110,9 +110,9 @@ function sendWarning(message:string) {
 
     <div v-if="role === 'student'">
         <main class="d-flex justify-content-around align-items-center page-height">
-            <StudentQuestions :questions="questions" @update="handleDeleteQuestion"/>
+            <StudentQuestions :questions="questions" @deleteQuestion="handleDeleteQuestion"/>
             <AllQuestions :questions="publicQuestions"/>
-            <QuestionManager :categories="categories" @update="handleAddQuestion"/>
+            <QuestionManager :categories="categories" @addQuestion="handleAddQuestion"/>
         </main>
     </div>
 
