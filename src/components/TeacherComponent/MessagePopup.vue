@@ -29,10 +29,10 @@ function close() {
 <template>
     <div class="d-flex flex-column align-items-center bg-white border border-dark border-2 rounded p-2 popupSize">
         <h1 class="fw-bold text-center" :class="{'text-danger' : isRed}">Attention!</h1>
-        <div class="mx-2">{{ props.message }}</div>
+        <div class="mx-2" name="message">{{ props.message }}</div>
         <div>
-            <div class="btn btn-outline-dark border-2 fw-bold m-2" @click="confirm">Confirmer</div>
-            <div class="btn btn-outline-dark border-2 fw-bold m-2" @click="close">Annuler</div>
+            <div class="btn btn-outline-dark border-2 fw-bold m-2" @click="confirm" name="confirmButton">Confirmer</div>
+            <div class="btn btn-outline-dark border-2 fw-bold m-2" @click="close" name="cancelButton">Annuler</div>
         </div>
     </div>
 </template>

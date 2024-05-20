@@ -37,11 +37,9 @@ onMounted(() => {
     profileStore.getProfile();
     setInterval(() => {warningStore.getWarning()}, 1000)
     userStore.getUsers()
+    categoryStore.getCategories()
+    questionStore.getAllQuestions()
 })
-
-function openDetailedQuestion(id: number) {
-    detailedQuestionId.value = id
-}
 
 function switchPopupState() {
     popupWindowOpen.value = !popupWindowOpen.value
@@ -54,6 +52,7 @@ function closeWarning() {
 
 
 //#region Teacher
+
 //#region Students
 const students = computed(() => userStore.users)
 
@@ -64,9 +63,56 @@ async function addStudent(name:string, password:string, email:string) {
 async function removeStudent(id:number) {
     await userStore.removeStudent(id)
 }
-//#region AddStudentForm
-
 //#endregion
+
+//#region Questions
+const categories = computed(() => categoryStore.categories)
+const questions = computed(() => questionStore.questions)
+
+async function addCategory(name:string) {
+    categoryStore.addCategory(name)
+}
+
+async function removeCategory(id:number) {
+    await categoryStore.removeCategory(id)
+}
+//#endregion
+
+//#region QuestionsDetail
+const studentName = ref<string>()
+const category = ref<string>()
+const questionDetail = ref<string>()
+
+function openDetailedQuestion(id: number) {
+    if (id != detailedQuestionId.value) {
+        detailedQuestionId.value = id
+        getStudentName()
+        getQuestionCategory()
+        getQuestionDetails()
+    }
+}
+
+async function getStudentName() {
+  let userId:number = await questionStore.getQuestionById(detailedQuestionId.value??0).then((response) => {return response.userId})
+  studentName.value = await userStore.getUserById(userId).then((response) => {return response.name})
+}
+
+async function getQuestionCategory() {
+  let categoryId:number = await questionStore.getQuestionById(detailedQuestionId.value??0).then((response) => {return response.categoryId})
+  category.value = await categoryStore.getCategoryById(categoryId).then((response) => {return response.name})
+}
+
+async function getQuestionDetails() {
+  questionDetail.value = await questionStore.getQuestionById(detailedQuestionId.value??0).then((response) => {return response.question})
+}
+
+async function deleteDetailedQuestion() {
+    await questionStore.deleteQuestion(detailedQuestionId.value)  
+    detailedQuestionId.value = 0
+    studentName.value = "Nom de l'élève"
+    category.value = "Catégorie"
+    questionDetail.value = "Question détaillée."
+}
 //#endregion
 
 //#region Warning
@@ -85,13 +131,13 @@ function sendWarning(message:string) {
 </script>
 
 <template>
-    <div v-if="role === 'teacher'" class="d-flex m-0 page-height">
+    <div v-if="role === 'teacher'" class="d-flex m-0 page-height border-bottom border-dark">
         <Students class="border-end border-dark w-25" :students="students" :popup-window-open="popupWindowOpen" @add-student="addStudent" @remove-student="removeStudent" @switch-popup-state="switchPopupState"/>
         <div class="flex-fill">
-            <DetailedQuestion class="h-75 p-3" :popup-window-open="popupWindowOpen" :question-id="detailedQuestionId"/>
+            <DetailedQuestion class="h-75 p-3" :question-id="detailedQuestionId" :student-name="studentName" :category="category" :question-detail="questionDetail" :popup-window-open="popupWindowOpen" @delete-question="deleteDetailedQuestion" @switch-popup-state="switchPopupState"/>
             <Alert class="border-top border-dark p-3 pb-0" :popup-window-open="popupWindowOpen" @send-warning="sendWarning"/>
         </div>
-        <Questions class="border-start border-dark w-25" :popup-window-open="popupWindowOpen" @switch-popup-state="switchPopupState" @open-detailed-question="openDetailedQuestion"/>
+        <Questions class="border-start border-dark w-25" :categories="categories" :questions="questions" :popup-window-open="popupWindowOpen" @add-category="addCategory" @remove-category="removeCategory" @switch-popup-state="switchPopupState" @open-detailed-question="openDetailedQuestion"/>
     </div>
 
     <div v-if="role === 'student'">

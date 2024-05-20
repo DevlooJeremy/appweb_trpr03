@@ -1,52 +1,34 @@
 import { describe, it, expect, vi } from 'vitest'
 import { mount } from '@vue/test-utils'
 import AddCategoryForm from '../AddCategoryForm.vue'
-import { text } from 'stream/consumers'
-import { createTestingPinia } from '@pinia/testing'
 
 describe('AddCategoryForm.vue', () => {
   it('Sending a form with valid name adds the category', async () => {
-    createTestingPinia()
     const wrapper = mount(AddCategoryForm)
-    const spyAddFunction = vi.spyOn(AddCategoryForm, 'addCategory')
 
-    /*await wrapper.find('div[text="Ajouter"]').trigger('click')
+    await wrapper.find('input[name="name"]').setValue("Nom de category")
+    await wrapper.find('div[name="addButton"]').trigger('click')
 
-    const emittedEvent = wrapper.emitted('close')
-    expect(spyAddFunction).toHaveBeenCalled()
-    expect(emittedEvent)*/
+    const emittedEvent = wrapper.emitted('addCategory')
+    expect(emittedEvent && emittedEvent[0][0]).toStrictEqual("Nom de category")
     
   })
 
-  it("Sur le clic d'une couleur, doit émettre l'événement clickColor", async () => {
-    const colors = ['bleu', 'blanc rouge']
-    const wrapper = mount(ColorAdderList, {
-      props: { colors }
-    })
+  it('Pressing cancel button closes the form', async () => {
+    const wrapper = mount(AddCategoryForm)
 
-    await wrapper.findAll('li')[0].trigger('click')
+    await wrapper.find('div[name="cancelButton"]').trigger('click')
 
-    const emittedEvent = wrapper.emitted('clickColor')
-    expect(emittedEvent && emittedEvent[0]).toStrictEqual([colors[0]])
+    const emittedEvent = wrapper.emitted('close')
+    expect(emittedEvent).toBeTruthy()
   })
 
-  it("Sur modification du prop colors, un message doit s'afficher dans la console", async () => {
-    const spyConsole = vi.spyOn(console, 'log')
+  it('Sending a form with no name shows empty name error message', async () => {
+    const wrapper = mount(AddCategoryForm)
 
-    const colors = ['bleu', 'blanc rouge']
-    const wrapper = mount(ColorAdderList, {
-      props: { colors }
-    })
+    await wrapper.find('div[name="addButton"]').trigger('click')
 
-    await wrapper.setProps({ colors: [...colors, 'jaune'] })
-
-    expect(spyConsole).toHaveBeenCalledWith(
-      'Le prop colors de ColorAdderList a été modifié.',
-      expect.anything(),
-      expect.anything()
-    )
-
-    // Nettoyer le mock après le test
-    spyConsole.mockRestore()
+    const nameErrorText = wrapper.find('div[name="nameError"]').text()
+    expect(nameErrorText).toStrictEqual("Le nom est requis et ne peut pas être vide.")
   })
 })

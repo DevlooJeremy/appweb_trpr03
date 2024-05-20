@@ -1,36 +1,27 @@
 <script setup lang="ts">
-import { ref, computed, onMounted } from 'vue';
-import { useCategoryStore } from "../../stores/categoryStore";
-import { useQuestionStore } from "../../stores/questionStore"
+import { ref } from 'vue';
 import AddCategoryForm from "./AddCategoryForm.vue"
 import MessagePopup from "./MessagePopup.vue";
 
 const CATEGORY_REMOVAL_MESSAGE: string = "Vous êtes sur le point de supprimer une catégorie ET toutes les questions dans celle-ci! Voulez-vous procéder? Catégorie: "
 
 const props = defineProps({
+    categories: Array<any>,
+    questions: Array<any>,
     popupWindowOpen: Boolean
 })
 
 const emit = defineEmits<{
+    (event: 'addCategory', name:string): void,
+    (event: 'removeCategory', id:number): void,
     (event: 'switchPopupState'): void,
     (event: 'openDetailedQuestion', id: number): void
 }>()
-
-const categoryStore = useCategoryStore()
-const questionStore = useQuestionStore()
-
-const categories = computed(() => categoryStore.categories)
-const questions = computed(() => questionStore.questions)
 
 const addingCategory = ref<boolean>(false)
 const categoryToRemove = ref<number>(0)
 const popupOpened = ref<boolean>(false)
 const popupMessage = ref<string>("Aucun message. Ceci est une erreur, veuillez appuyer sur «Annuler».")
-
-onMounted(() => {
-    categoryStore.getCategories()
-    questionStore.getAllQuestions()
-})
 
 function openCategoryForm() {
     if (!props.popupWindowOpen) {
@@ -42,6 +33,10 @@ function openCategoryForm() {
 function closeCategoryForm() {
     emit('switchPopupState')
     addingCategory.value = false
+}
+
+function addCategory(name:string) {
+    emit('addCategory', name)
 }
 
 function openPopupMessage(message:string) {
@@ -59,8 +54,8 @@ function removeCategory(id:number, name: string) {
     }
 }
 
-async function confirmFromPopup() {
-    await categoryStore.removeCategory(categoryToRemove.value)
+function confirmFromPopup() {
+    emit('removeCategory', categoryToRemove.value)
     closePopup()
 }
 
@@ -76,7 +71,7 @@ function openDetailedQuestion(id:number) {
     }
 }
 
-function isInCorrespondingCategory(categoryId: number, idToVerify: number) {
+function isCorrespondingCategory(categoryId: number, idToVerify: number) {
     return idToVerify == categoryId
 }
 
@@ -85,20 +80,20 @@ function isInCorrespondingCategory(categoryId: number, idToVerify: number) {
 <template>
     <div class="d-flex flex-column align-items-center py-3">
         <h1 class="title">Questions</h1>
-        <div class="adding-button mb-2" @click="openCategoryForm">Créer catégorie +</div>
-        <div class="w-100 border-top border-bottom border-dark container" v-for="category of categories">
+        <div class="adding-button mb-2" @click="openCategoryForm" name="addCategory">Créer catégorie +</div>
+        <div class="w-100 border-top border-bottom border-dark container" v-for="category of props.categories">
             <div class="row my-2">
-                <div class="col text-center text-muted fw-bold p-0">{{ category.name }}</div>
-                <div class="col text-center text-danger p-0" @click="removeCategory(category.id, category.name)">Supprimer</div>
+                <div class="col text-center text-muted fw-bold p-0" name="categoryName">{{ category.name }}</div>
+                <div class="col text-center text-danger p-0" @click="removeCategory(category.id, category.name)" name="deleteButton">Supprimer</div>
             </div>
-            <div v-for="question of questions">
-                <div class="row border border-dark rounded py-2 mx-3 my-1 question" :class="{'super-question': question.isSuper}" @click="openDetailedQuestion(question.id)" v-if="isInCorrespondingCategory(category.id, question.categoryId)">
-                    <div class="col text-center">Sujet: {{ question.subject }}</div>
-                    <div class="col text-center">Priorité: {{ question.priority }}</div>
+            <div v-for="question of props.questions">
+                <div class="row border border-dark rounded py-2 mx-3 my-1 question" :class="{'super-question': question.isSuper}" name="question" @click="openDetailedQuestion(question.id)" v-if="isCorrespondingCategory(category.id, question.categoryId)">
+                    <div class="col text-center" name="questionSubject">Sujet: {{ question.subject }}</div>
+                    <div class="col text-center" name="questionPriority">Priorité: {{ question.priority }}</div>
                 </div>
             </div>
         </div>
-        <AddCategoryForm v-if="addingCategory" class="position-absolute top-50 start-50 translate-middle" @close="closeCategoryForm"/>
+        <AddCategoryForm v-if="addingCategory" class="position-absolute top-50 start-50 translate-middle" @add-category="addCategory" @close="closeCategoryForm"/>
         <MessagePopup v-if="popupOpened" class="position-absolute top-50 start-50 translate-middle" :message="popupMessage" @confirm="confirmFromPopup" @close="closePopup"/>
     </div>
 </template>

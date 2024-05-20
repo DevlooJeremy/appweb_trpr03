@@ -11,7 +11,7 @@ const emit = defineEmits<{
     (event: 'startTimer'): void,
     (event: 'setTime', newTime:number): void,
     (event: 'stopTimer'): void,
-    (event: 'reinitialiseTimer'): void
+    (event: 'resetTimer'): void
 }>()
 
 function startTimer() {
@@ -31,9 +31,9 @@ function stopTimer() {
     }
 }
 
-function reinitialiseTimer() {
+function resetTimer() {
     if (!props.popupWindowOpen) {
-        emit("reinitialiseTimer")
+        emit("resetTimer")
     }
 }
 
@@ -47,13 +47,13 @@ function timeToNumber(): number {
     <div class="d-flex flex-column">
         <h2 class="">Minuteur</h2>
         <form class="d-flex align-items-center">
-            <input class="time-input" type="number" v-model="minutes" placeholder="00">
+            <input class="time-input" type="number" v-model="minutes" placeholder="00" name="minutes">
             :
-            <input class="time-input" type="number" v-model="seconds" placeholder="00">
+            <input class="time-input" type="number" v-model="seconds" placeholder="00" name="seconds">
             <div class="ms-auto">
-                <div class="btn btn-outline-dark border-2 fw-bold m-2" @click="startTimer">Démarrer</div>
-                <div class="btn btn-outline-dark border-2 fw-bold m-2" @click="stopTimer">Arrêter</div>
-                <div class="btn btn-outline-dark border-2 fw-bold m-2" @click="reinitialiseTimer">Réinitialiser</div>
+                <div class="btn btn-outline-dark border-2 fw-bold m-2" @click="startTimer" name="startButton">Démarrer</div>
+                <div class="btn btn-outline-dark border-2 fw-bold m-2" @click="stopTimer" name="stopButton">Arrêter</div>
+                <div class="btn btn-outline-dark border-2 fw-bold m-2" @click="resetTimer" name="resetButton">Réinitialiser</div>
             </div>
         </form>
     </div>
