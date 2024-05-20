@@ -1,13 +1,26 @@
 <script setup lang="ts">
-import { RouterView } from 'vue-router'
+import { RouterView, useRouter } from 'vue-router'
 import NavigationBar from './components/NavigationBar.vue'
+import { useAuthStore } from './stores/authStore'
+import { computed } from 'vue'
+
+const authStore = useAuthStore();
+const router = useRouter();
+const isLoggedIn = computed(() => authStore.isLoggedIn)
+
+function logout() {
+  authStore.logout()
+  router.push({
+    name: 'Login'
+  })
+}
 </script>
 
 <template>
   <header>
     <div>
       <!-- Le composant NavigationBar est affiché sur toutes les pages de l'application. Il contient des liens de navigation. Voir son contenu dans le fichier src/components/NavigationBar.vue -->
-      <NavigationBar />
+      <NavigationBar :isLoggedIn="isLoggedIn" @logout="logout"/>
     </div>
   </header>
   <main>

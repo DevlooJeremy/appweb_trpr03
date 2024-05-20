@@ -46,4 +46,24 @@ describe('StudentQuestionTest', () => {
         const div = wrapper.find('li[name=questions] div')
         expect(div.classes()).toContain('super')
     })
+
+    it('If question is deleted an emit is sent', () => {
+        const questions = [
+            {
+                id: 1,
+                question: "first test question",
+                isSuper: true
+            }
+        ]
+
+        const wrapper = mount(StudentQuestions, {
+            props: {
+                questions: questions
+            }
+        })
+
+        wrapper.find('div[name=deleteQuestion]').trigger('click')
+
+        expect(wrapper.emitted('deleteQuestion')).toBeTruthy();
+    })
 })

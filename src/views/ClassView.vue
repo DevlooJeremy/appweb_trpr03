@@ -156,9 +156,9 @@ const publicQuestions = computed(() => questionStore.publicQuestions)
 
     <div v-if="role === 'student'">
         <main class="d-flex justify-content-around align-items-center page-height">
-            <StudentQuestions :questions="userQuestions" @update="handleDeleteQuestion"/>
+            <StudentQuestions :questions="userQuestions" @deleteQuestion="handleDeleteQuestion"/>
             <AllQuestions :questions="publicQuestions"/>
-            <QuestionManager :categories="categories" @update="handleAddQuestion"/>
+            <QuestionManager :categories="categories" @addQuestion="handleAddQuestion"/>
         </main>
     </div>
 

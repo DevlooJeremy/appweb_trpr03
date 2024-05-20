@@ -39,7 +39,7 @@ describe('Test du professeur', () => {
       cy.get('input[name=email-input]').type(teacher.email)
       cy.get('input[name=password-input]').type(teacher.password)
   
-      cy.get('button[type=addButton]').click()
+      cy.get('button[type=submit]').click()
   
       cy.contains(/déconnecter/i)
     })
@@ -78,7 +78,7 @@ describe('Test du professeur', () => {
       cy.get('input[name=newPassword]').type("newPassword")
       cy.get('input[name=passwordConfirmation]').type("newPassword")
   
-      cy.get('button[name=addButton]').click()
+      cy.get('button[name=submit]').click()
       cy.contains(/déconnecter/i).click()
   
       cy.login(teacher.email,"newPassword")

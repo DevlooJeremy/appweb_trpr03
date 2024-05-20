@@ -6,11 +6,11 @@ const props = defineProps({
 
 
 const emit = defineEmits<{
-    (event: 'update', questionId: number): void
+    (event: 'deleteQuestion', questionId: number): void
 }>()
 
 function deleteQuestion(id: number) {
-    emit('update', id)
+    emit('deleteQuestion', id)
 }
 
 </script>

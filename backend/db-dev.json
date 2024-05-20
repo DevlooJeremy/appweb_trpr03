@@ -13,6 +13,13 @@
       "name": "Glucose",
       "role": "student",
       "id": 2
+    },
+    {
+      "email": "gaergaegr@argaerg.com",
+      "password": "$2a$10$xyBa/H0QsXT8Dpwt9xUUyOQ4EDaYP5Ayb0RB2yuxC2EtBuZBmPUkm",
+      "name": "aegreagr",
+      "role": "student",
+      "id": 3
     }
   ],
   "questions": [
@@ -25,7 +32,8 @@
       "priority": 5,
       "isSuper": false,
       "isPrivate": false
-    },{
+    },
+    {
       "id": 2,
       "userId": 1,
       "question": "Je suis la meilleure bar de navigation à avoir existé.",
@@ -34,7 +42,8 @@
       "priority": 2,
       "isSuper": false,
       "isPrivate": false
-    },{
+    },
+    {
       "id": 3,
       "userId": 2,
       "question": "Comment ce fait-il que mes 300 photos de chats sont disparues hier?",
@@ -49,7 +58,8 @@
     {
       "id": 1,
       "name": "Question courte"
-    }, {
+    },
+    {
       "id": 2,
       "name": "Question longue"
     }

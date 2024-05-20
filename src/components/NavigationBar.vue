@@ -1,19 +1,21 @@
 <script setup lang="ts">
-import { computed } from 'vue'
-import { useAuthStore } from '../stores/authStore'
-import { useRouter } from 'vue-router'
+import { useRouter } from 'vue-router';
 
-const authStore = useAuthStore()
+
 const router = useRouter()
 
-const isLoggedIn = computed(() => authStore.isLoggedIn)
+const props = defineProps({
+  isLoggedIn: Boolean
+})
 
-function logout() {
-  authStore.logout()
-  router.push({
-    name: 'Login'
-  })
+const emit = defineEmits<{
+  (event: 'logout'): void
+}>()
+
+function onLogout() {
+  emit('logout')
 }
+
 </script>
 
 <template>
@@ -24,7 +26,7 @@ function logout() {
         <RouterLink
           class="nav-link"
           :class="{ active: $route.name == 'Class' }"
-          v-if="isLoggedIn"
+          v-if="props.isLoggedIn"
           :to="{ name: 'Class' }"
         >
           Classe
@@ -34,13 +36,13 @@ function logout() {
         <div class="navbar-nav ml-auto">
           <RouterLink 
             class="nav-link"
-            v-if="isLoggedIn" 
+            v-if="props.isLoggedIn" 
             :class="{ active: $route.name == 'Profile' }" 
             :to="{ name: 'Profile'}" 
           >
             Profile
           </RouterLink>
-          <a class="nav-link" @click="logout" v-if="isLoggedIn" href="#">
+          <a class="nav-link" @click="onLogout" v-if="props.isLoggedIn" href="#">
             Se déconnecter
           </a>
           <RouterLink
