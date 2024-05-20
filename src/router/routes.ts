@@ -1,4 +1,3 @@
-import HomeView from '../views/HomeView.vue'
 import ProfileView from '../views/ProfileView.vue'
 import LoginView from '../views/LoginView.vue'
 import ClassView from '../views/ClassView.vue'
@@ -7,12 +6,7 @@ const routes = [
   {
     path: '/',
     name: 'Home',
-    component: HomeView
-  },
-  {
-    path: '/about',
-    name: 'About',
-    component: () => import('../views/AboutView.vue')
+    component: LoginView
   },
   {
     path: '/profile',

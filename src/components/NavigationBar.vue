@@ -20,22 +20,6 @@ function logout() {
   <nav class="navbar navbar-expand-md navbar-dark bg-dark">
     <div class="container-fluid">
       <div class="navbar-nav mr-auto">
-        <!-- Le ":class={...}" veut dire si la route est égal à 'Home' alors "active" de bootstrap sera ajoutée à l'attribut "class". Ce qui aura comme effet de mettre en évidence l'option du menu. -->
-        <RouterLink
-          class="nav-link"
-          :class="{ active: $route.name == 'Home' }"
-          :to="{ name: 'Home' }"
-        >
-          Accueil
-        </RouterLink>
-        <RouterLink
-          class="nav-link"
-          :class="{ active: $route.name == 'About' }"
-          :to="{ name: 'About' }"
-        >
-          À propos
-        </RouterLink>
-
         <!-- La page Profile n'est accessible que si l'utilisateur est connecté (v-if). Voir la propriété calculée isLoggedIn() qui retourne la valeur de la propriété isLoggedIn du store. -->
         <RouterLink
           class="nav-link"
