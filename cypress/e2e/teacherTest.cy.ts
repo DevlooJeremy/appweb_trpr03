@@ -65,7 +65,7 @@ describe('Test du professeur', () => {
       cy.visit("/class")
       cy.addStudent()
   
-      cy.get('div[name=deleteButton]').click()
+      cy.get('div[name=deleteStudent]').click()
       cy.contains(/Confirmer/i).click()
 
       cy.contains(/userTest/).should('not.exist')

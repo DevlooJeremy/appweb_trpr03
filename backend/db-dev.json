@@ -13,13 +13,6 @@
       "name": "Glucose",
       "role": "student",
       "id": 2
-    },
-    {
-      "email": "gaergaegr@argaerg.com",
-      "password": "$2a$10$xyBa/H0QsXT8Dpwt9xUUyOQ4EDaYP5Ayb0RB2yuxC2EtBuZBmPUkm",
-      "name": "aegreagr",
-      "role": "student",
-      "id": 3
     }
   ],
   "questions": [

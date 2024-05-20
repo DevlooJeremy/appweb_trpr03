@@ -98,7 +98,7 @@ Cypress.Commands.add('addStudent', () => {
       cy.get('input[name=password]').type("passwordTest")
       cy.get('input[name=email]').type("email@test.com")
   
-      cy.get('div[name=submit]').click()
+      cy.get('div[name=addButton]').click()
 })
 
 export {}
