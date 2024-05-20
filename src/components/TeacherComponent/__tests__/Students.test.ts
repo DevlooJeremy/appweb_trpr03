@@ -22,7 +22,7 @@ describe('Students.vue', () => {
         props: { students:users }
     })
 
-    await wrapper.find('div[name="deleteButton"]').trigger('click')
+    await wrapper.find('div[name="deleteStudent"]').trigger('click')
    
     const emittedEvent = wrapper.emitted('switchPopupState')
     expect(emittedEvent).toBeTruthy()
