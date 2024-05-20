@@ -1,14 +1,14 @@
 <script setup lang="ts">
-import { useAuthStore } from '@/stores/authStore'
-import { useCategoryStore } from '@/stores/categoryStore';
-import { useQuestionStore } from '@/stores/questionStore';
 import { computed, onMounted, ref } from 'vue'
 
-const authStore = useAuthStore();
-const questionStore = useQuestionStore();
-const categoryStore = useCategoryStore();
 
-const categories = computed<any>(() => categoryStore.categories);
+const props = defineProps({
+    categories: Array<any>
+})
+
+const emit = defineEmits<{
+    (event: 'update', question: string, category: number, subject: string, priority: number, isSuper: boolean, isPrivate: boolean ): void
+}>()
 
 const isSuper = defineModel<boolean>("isSuper");
 const question = defineModel<string>("question");
@@ -29,44 +29,44 @@ onMounted(() => {
     isSuper.value = false;
     priority.value = "1";
     isPrivate.value = false;
-    categoryStore.getCategories();
 })
 
-function isSubjectValid(): boolean {
-    if (subject.value == undefined || subject.value.trim() == "") {
+function isSubjectValid(subject: string): boolean {
+    if (subject == undefined || subject.trim() == "") {
         return false;
     }
     return true;
 }
 
-function isQuestionValid(): boolean {
-    if (question.value == undefined || question.value.trim() == "") {
+function isQuestionValid(question: string): boolean {
+    if (question == undefined || question.trim() == "") {
         return false;
     }
     return true;
 }
 
-function isCategoryValid(): boolean {
-    if (categoryModel.value == undefined) {
+function isCategoryValid(category: number): boolean {
+    if (category == undefined || isNaN(category)) {
         return false;
     }
     return true;
 }
+
 
 async function onSubmit() {
-    if (!isSubjectValid()) {
+    if (!isSubjectValid(subject.value)) {
         subjectOnError.value = true;
         questionOnError.value = false;
         categoryOnError.value = false;
         return;
     };
-    if (!isQuestionValid()) {
+    if (!isQuestionValid(question.value)) {
         questionOnError.value = true;
         subjectOnError.value = false;
         categoryOnError.value = false;
         return;
     };
-    if (!isCategoryValid()) {
+    if (!isCategoryValid(parseInt(categoryModel.value))) {
         categoryOnError.value = true;
         subjectOnError.value = false;
         questionOnError.value = false;
@@ -75,15 +75,20 @@ async function onSubmit() {
     subjectOnError.value = false;
     questionOnError.value = false;
     categoryOnError.value = false;
-    let questionId: number = await questionStore.createQuestion(question.value, parseInt(categoryModel.value), subject.value, parseInt(priority.value), isSuper.value, isPrivate.value);
+    emit('update', question.value, parseInt(categoryModel.value), subject.value, parseInt(priority.value), isSuper.value, isPrivate.value);
 }
+defineExpose({
+    isSubjectValid,
+    isQuestionValid,
+    isCategoryValid
+})
 </script>
 
 <template>
     <main>
         <h1 class="text-center">Créer une question</h1>
             <form class="border border-dark border-2 p-3" @submit.prevent="onSubmit">
-                <input v-model="subject" class="form-control" type="text" placeholder="Sujet">
+                <input name="subject" v-model="subject" class="form-control" type="text" placeholder="Sujet">
                 <div v-if="subjectOnError" class="px-2 py-1 mt-3 bg-danger text-white rounded">{{ SUBJECT_ERROR_MESSAGE }}</div>
                 <textarea class="form-control my-3" name="question" v-model="question" placeholder="Question" cols="50" rows="5"></textarea>
                 <div v-if="questionOnError" class="px-2 py-1 mb-3 bg-danger text-white rounded">{{ QUESTION_ERROR_MESSAGE }}</div>
@@ -101,7 +106,7 @@ async function onSubmit() {
                     <div>
                         <label for="category">Choisir une catégorie:</label>
                         <select v-model="categoryModel" name="category" id="category">
-                            <option v-for="category of categories" :value="category.id">{{ category.name }}</option>
+                            <option v-for="category of props.categories" name="category" :value="category.id">{{ category.name }}</option>
                         </select>
                     </div>
                     <div>
@@ -115,7 +120,7 @@ async function onSubmit() {
                 </div>
                 <div v-if="categoryOnError" class="px-2 py-1 mb-3 bg-danger text-white rounded">{{ CATEGORY_ERROR_MESSAGE }}</div>
                 <div class="d-flex">
-                    <button class="btn btn-primary ms-auto m-2">Envoyer la question</button>
+                    <button name="submit" class="btn btn-primary ms-auto m-2">Envoyer la question</button>
                 </div>
             </form>
             

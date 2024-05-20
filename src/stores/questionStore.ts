@@ -7,6 +7,7 @@ import { useAuthStore } from "@/stores/authStore";
 export const useQuestionStore = defineStore('useQuestionStoreId',() => {
 
     const questions = ref<any>();
+    const userQuestions = ref<any>();
     const publicQuestions = ref<any>();
     const authStore = useAuthStore()
 
@@ -17,7 +18,7 @@ export const useQuestionStore = defineStore('useQuestionStoreId',() => {
 
     async function getQuestions() {
         let userId = parseInt(authStore.getUserId);
-        questions.value = await questionService.getUserQuestions(userId);
+        userQuestions.value = await questionService.getUserQuestions(userId);
     }
 
     async function getAllQuestions() {
@@ -38,17 +39,21 @@ export const useQuestionStore = defineStore('useQuestionStoreId',() => {
         let nextQuestionId: number = await getNextQuestionId();
         const response = await questionService.postQuestion({id: nextQuestionId, userId: userId, question: question, categoryId: categoryId, subject: subject, priority: priority, isSuper: isSuper, isPrivate: isPrivate});
         getQuestions();
+        getAllPublicQuestions();
         return response.id;
     }
 
     async function deleteQuestion(id: number) {
         await questionService.deleteQuestion(id);
         getQuestions();
+        getAllQuestions();
+        getAllPublicQuestions();
     }
 
 
     return {
         questions,
+        userQuestions,
         publicQuestions,
         getQuestionById,
         getQuestions,

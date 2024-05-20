@@ -83,23 +83,32 @@ function onSubmit() {
 </script>
 
 <template>
-  <div>
+  <div class="m-3">
     <h1>Profile</h1>
-    <div>Nom: {{ name }}</div>
-    <div>Courriel: {{ email }}</div>
+    <h4>Nom: {{ name }}</h4>
+    <h4>Courriel: {{ email }}</h4>
   </div>
 
   <div>
-    <form @submit.prevent="onSubmit">
-      <input v-model="newPassword" type="password" placeholder="nouveau mot de passe">
-      <div class="p-3 mb-2 bg-danger text-white" v-if="passwordNotLongEnoughError">{{ newPasswordErrorMessage }}</div>
-      <div class="p-3 mb-2 bg-danger text-white" v-if="newPasswordOnError">{{ newPasswordErrorMessage }}</div>
-      <input v-model="passwordConfirmation" type="password" placeholder="confirmation du mot de passe">
-      <div class="p-3 mb-2 bg-danger text-white" v-if="passwordConfirmationOnError">{{ passwordConfirmationErrorMessage }}</div>
-      <div class="p-3 mb-2 bg-danger text-white" v-if="passwordNotIdenticalError">{{ passwordConfirmationErrorMessage }}</div>
-      <button class="btn btn-primary">changer</button>
+    <form class="d-flex flex-column align-items-center m-3" @submit.prevent="onSubmit">
+      <h2>Changer votre mot de passe</h2>
+      <div class="w-75">
+        <input class="w-100" v-model="newPassword" name="newPassword" type="password" placeholder="Nouveau mot de passe">
+        <div class="p-1 my-2 bg-danger text-white" v-if="passwordNotLongEnoughError">{{ newPasswordErrorMessage }}</div>
+        <div class="p-1 my-2 bg-danger text-white" v-if="newPasswordOnError">{{ newPasswordErrorMessage }}</div>
+      </div>
+      <div class="w-75 my-2">
+        <input class="w-100" v-model="passwordConfirmation" name="passwordConfirmation" type="password" placeholder="Confirmation du mot de passe">
+        <div class="p-1 my-2 bg-danger text-white" v-if="passwordConfirmationOnError">{{ passwordConfirmationErrorMessage }}</div>
+        <div class="p-1 my-2 bg-danger text-white" v-if="passwordNotIdenticalError">{{ passwordConfirmationErrorMessage }}</div>
+      </div>
+      <button name="submit" class="btn btn-primary">Changer</button>
     </form>
   </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+form {
+  width: fit-content;
+}
+</style>

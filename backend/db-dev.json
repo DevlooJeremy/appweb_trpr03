@@ -23,7 +23,8 @@
       "categoryId": 1,
       "subject": "UwU",
       "priority": 5,
-      "isSuper": false
+      "isSuper": false,
+      "isPrivate": false
     },{
       "id": 2,
       "userId": 1,
@@ -31,7 +32,8 @@
       "categoryId": 2,
       "subject": "NavXd",
       "priority": 2,
-      "isSuper": false
+      "isSuper": false,
+      "isPrivate": false
     },{
       "id": 3,
       "userId": 2,
@@ -39,7 +41,8 @@
       "categoryId": 2,
       "subject": "Kitties",
       "priority": 1,
-      "isSuper": true
+      "isSuper": true,
+      "isPrivate": false
     }
   ],
   "categories": [

@@ -30,6 +30,8 @@ const role = computed(() => profileStore.role)
 const detailedQuestionId = ref<number>(0)
 const popupWindowOpen = ref<boolean>(false)
 
+const categories = computed(() => categoryStore.categories)
+
 const showWarning = computed(() => (warningStore.warning??{isActive: false}).isActive)
 const warningMessage = computed(() => (warningStore.warning??{message: "N/M"}).message)
 
@@ -39,6 +41,8 @@ onMounted(() => {
     userStore.getUsers()
     categoryStore.getCategories()
     questionStore.getAllQuestions()
+    questionStore.getQuestions();
+    questionStore.getAllPublicQuestions();
 })
 
 function switchPopupState() {
@@ -57,7 +61,7 @@ function closeWarning() {
 const students = computed(() => userStore.users)
 
 async function addStudent(name:string, password:string, email:string) {
-    userStore.addStudent(name, password, email)
+    await userStore.addStudent(name, password, email)
 }
 
 async function removeStudent(id:number) {
@@ -66,8 +70,8 @@ async function removeStudent(id:number) {
 //#endregion
 
 //#region Questions
-const categories = computed(() => categoryStore.categories)
 const questions = computed(() => questionStore.questions)
+
 
 async function addCategory(name:string) {
     categoryStore.addCategory(name)
@@ -93,17 +97,17 @@ function openDetailedQuestion(id: number) {
 }
 
 async function getStudentName() {
-  let userId:number = await questionStore.getQuestionById(detailedQuestionId.value??0).then((response) => {return response.userId})
-  studentName.value = await userStore.getUserById(userId).then((response) => {return response.name})
+    let userId:number = await questionStore.getQuestionById(detailedQuestionId.value??0).then((response) => {return response.userId})
+    studentName.value = await userStore.getUserById(userId).then((response) => {return response.name})
 }
 
 async function getQuestionCategory() {
-  let categoryId:number = await questionStore.getQuestionById(detailedQuestionId.value??0).then((response) => {return response.categoryId})
-  category.value = await categoryStore.getCategoryById(categoryId).then((response) => {return response.name})
+    let categoryId:number = await questionStore.getQuestionById(detailedQuestionId.value??0).then((response) => {return response.categoryId})
+    category.value = await categoryStore.getCategoryById(categoryId).then((response) => {return response.name})
 }
 
 async function getQuestionDetails() {
-  questionDetail.value = await questionStore.getQuestionById(detailedQuestionId.value??0).then((response) => {return response.question})
+    questionDetail.value = await questionStore.getQuestionById(detailedQuestionId.value??0).then((response) => {return response.question})
 }
 
 async function deleteDetailedQuestion() {
@@ -124,6 +128,16 @@ function sendWarning(message:string) {
 //#endregion
 
 //#region Student
+const userQuestions = computed(() => questionStore.userQuestions)
+const publicQuestions = computed(() => questionStore.publicQuestions)
+
+    async function handleAddQuestion(question: string, category: number, subject: string, priority: number, isSuper: boolean, isPrivate: boolean) {
+        await questionStore.createQuestion(question,category,subject,priority,isSuper,isPrivate);
+    }
+
+    async function handleDeleteQuestion(questionId: number) {
+        await questionStore.deleteQuestion(questionId)
+    }
 
 //#endregion
 
@@ -142,9 +156,9 @@ function sendWarning(message:string) {
 
     <div v-if="role === 'student'">
         <main class="d-flex justify-content-around align-items-center page-height">
-            <StudentQuestions/>
-            <AllQuestions/>
-            <QuestionManager/>
+            <StudentQuestions :questions="userQuestions" @update="handleDeleteQuestion"/>
+            <AllQuestions :questions="publicQuestions"/>
+            <QuestionManager :categories="categories" @update="handleAddQuestion"/>
         </main>
     </div>
 

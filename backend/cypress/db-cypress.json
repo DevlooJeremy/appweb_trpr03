@@ -1,11 +1,25 @@
 {
   "users": [
     {
-      "email": "mon@courriel.com",
-      "password": "$2a$10$NO0nXMJ.PwmDqoqQtFXA7eZjhtHL3su28qaLVqfJc3WF4trPaS25q",
-      "name": "Bruce Lee",
+      "email": "jeremy@courriel.com",
+      "password": "$2a$10$LpyH0RcnhPnC/jnPqepV3u8jFmxk6nAuHz1i95EwimvrFdWnelxcO",
+      "name": "jeremy devloo",
+      "role": "student",
       "id": 1
+    },
+    {
+      "email": "hugo@courriel.com",
+      "password": "$2a$10$tyPiuUTOHimhEIaojnIEte0DgRjksfjqrsN3I2rTrCtxP3Za6isT.",
+      "name": "devloo",
+      "role": "teacher",
+      "id": 2
     }
   ],
-  "comments": []
+  "questions": [],
+  "categories": [
+    {
+      "id": 1,
+      "name": "Question longue"
+    }
+  ]
 }

@@ -1,18 +1,16 @@
 <script setup lang="ts">
-import { onMounted, computed } from 'vue';
-import { useQuestionStore } from '@/stores/questionStore';
 
-const questionStore = useQuestionStore();
-
-
-const questions = computed(() => questionStore.questions);
-
-onMounted(() => {
-    questionStore.getQuestions();
+const props = defineProps({
+    questions: Array<any>
 })
 
+
+const emit = defineEmits<{
+    (event: 'update', questionId: number): void
+}>()
+
 function deleteQuestion(id: number) {
-    questionStore.deleteQuestion(id);
+    emit('update', id)
 }
 
 </script>
@@ -22,13 +20,13 @@ function deleteQuestion(id: number) {
         <h1 class="text-center">Questions publiques</h1>
         <div class="border border-2 border-dark questions">
             <ul>
-                <li v-for="(question, index) of questions">
+                <li name="questions" v-for="(question, index) of props.questions">
                     <div class="border-bottom border-dark border-1 p-2 d-flex" :class="{'super':question.isSuper}">
                         <h4 class="fw-bold">{{ index + 1}}</h4>
                         <div class="ms-2  text-break">
                             {{ question.question }}
                         </div>
-                        <div @click="deleteQuestion(question.id)" class="text-danger fw-bold border border-dark bg-white rounded p-1 m-2 align-self-center">Supprimer</div>
+                        <div @click="deleteQuestion(question.id)" name="deleteQuestion" class="text-danger fw-bold border border-dark bg-white rounded p-1 m-2 align-self-center">Supprimer</div>
                     </div>
                 </li>
             </ul>

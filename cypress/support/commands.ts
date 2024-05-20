@@ -1,4 +1,7 @@
 /// <reference types="cypress" />
+
+import cypress from "cypress";
+
 // ***********************************************
 // This example commands.ts shows you how to
 // create various custom commands and overwrite
@@ -40,6 +43,10 @@ declare global {
     namespace Cypress {
         interface Chainable {
             login(email: string, password: string): void;
+            addQuestion(subject: string, question: string, category: string ): void;
+            addCategory(nom: string): void;
+            disconnect(): void;
+            addStudent(): void;
         }
     }
 }
@@ -56,6 +63,42 @@ Cypress.Commands.add('login', (email, password) => {
     cy.get('button[type=submit]').click()
 
     cy.contains(/déconnecter/i)
+})
+
+Cypress.Commands.add('addQuestion', (subject, question, category) => {
+    
+    //cy.addCategory(category)
+
+    cy.get('input[name=subject]').type(subject)
+    cy.get('textarea[name=question]').type(question)
+    cy.get('select[name=category]').select(category)
+
+    cy.get('button[name=submit]').click()
+})
+
+Cypress.Commands.add('addCategory', (name) => {
+    cy.login("hugo@courriel.com", "teacher")
+
+    cy.get('div[name=addCategory]').click()
+    cy.get('input[name=add]').type(name)
+    cy.contains('Ajouter').click()
+
+    cy.disconnect()
+   
+})
+
+Cypress.Commands.add('disconnect', () => {
+    cy.contains(/déconnecter/i).click()
+})
+
+Cypress.Commands.add('addStudent', () => {
+    cy.contains(/Ajouter +/i).click()
+  
+      cy.get('input[name=name]').type("userTest")
+      cy.get('input[name=password]').type("passwordTest")
+      cy.get('input[name=email]').type("email@test.com")
+  
+      cy.get('div[name=submit]').click()
 })
 
 export {}
