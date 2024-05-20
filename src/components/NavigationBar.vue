@@ -1,19 +1,21 @@
 <script setup lang="ts">
-import { computed } from 'vue'
-import { useAuthStore } from '../stores/authStore'
-import { useRouter } from 'vue-router'
+import { useRouter } from 'vue-router';
 
-const authStore = useAuthStore()
+
 const router = useRouter()
 
-const isLoggedIn = computed(() => authStore.isLoggedIn)
+const props = defineProps({
+  isLoggedIn: Boolean
+})
 
-function logout() {
-  authStore.logout()
-  router.push({
-    name: 'Login'
-  })
+const emit = defineEmits<{
+  (event: 'logout'): void
+}>()
+
+function onLogout() {
+  emit('logout')
 }
+
 </script>
 
 <template>
@@ -21,26 +23,12 @@ function logout() {
     <div class="container-fluid">
       <div class="navbar-nav mr-auto">
         <!-- Le ":class={...}" veut dire si la route est égal à 'Home' alors "active" de bootstrap sera ajoutée à l'attribut "class". Ce qui aura comme effet de mettre en évidence l'option du menu. -->
-        <RouterLink
-          class="nav-link"
-          :class="{ active: $route.name == 'Home' }"
-          :to="{ name: 'Home' }"
-        >
-          Accueil
-        </RouterLink>
-        <RouterLink
-          class="nav-link"
-          :class="{ active: $route.name == 'About' }"
-          :to="{ name: 'About' }"
-        >
-          À propos
-        </RouterLink>
 
         <!-- La page Profile n'est accessible que si l'utilisateur est connecté (v-if). Voir la propriété calculée isLoggedIn() qui retourne la valeur de la propriété isLoggedIn du store. -->
         <RouterLink
           class="nav-link"
           :class="{ active: $route.name == 'Class' }"
-          v-if="isLoggedIn"
+          v-if="props.isLoggedIn"
           :to="{ name: 'Class' }"
         >
           Classe
@@ -50,13 +38,13 @@ function logout() {
         <div class="navbar-nav ml-auto">
           <RouterLink 
             class="nav-link"
-            v-if="isLoggedIn" 
+            v-if="props.isLoggedIn" 
             :class="{ active: $route.name == 'Profile' }" 
             :to="{ name: 'Profile'}" 
           >
             Profile
           </RouterLink>
-          <a class="nav-link" @click="logout" v-if="isLoggedIn" href="#">
+          <a class="nav-link" @click="onLogout" v-if="props.isLoggedIn" href="#">
             Se déconnecter
           </a>
           <RouterLink
